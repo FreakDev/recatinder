@@ -1,0 +1,11 @@
+
+@import './bars.css';
+
+.App-buttons {
+    height: 150px;
+    background-color: #000000;
+}
+
+.App-buttons.down {
+    bottom: 0;
+}
