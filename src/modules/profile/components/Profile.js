@@ -19,7 +19,7 @@ class ProfileCmp extends Component {
     render() {
         return (
             <div className="App-profile">
-                <Draggable>
+                <Draggable style={{ height: '74.5%' }}>
                     <Photos />
                     <Overlay />
                 </Draggable>

@@ -2,8 +2,7 @@
 @import './bars.css';
 
 .App-buttons {
-    height: 150px;
-    background-color: #000000;
+    height: 23%;
 }
 
 .App-buttons.down {

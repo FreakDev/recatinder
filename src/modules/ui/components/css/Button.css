@@ -1,0 +1,73 @@
+
+.button {
+    width:70px;
+    height: 70px;
+    line-height: 70px;
+    overflow:hidden;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    box-sizing: border-box;
+    background-color: #fff;
+    font-family: 'Roboto Condensed', sans-serif;    
+}
+
+.button.rounded {
+    border-radius: 50%;
+    border-image: linear-gradient(45deg, #f0f2f5, #f4f5f7);
+    box-shadow: 0px 5px 50px rgba(20, 20, 20, 0.1);    
+}
+
+.button.small {
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+}
+
+.button.smaller {
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
+    font-size: 1.2em;
+}
+
+.button i.icon {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    background-size: contain;
+}
+
+.button i.icon.refresh {
+    background-image: url('/icons/refresh.jpg');
+}
+
+.button i.icon.nope {
+    background-image: url('/icons/nope.jpg');
+}
+
+.button i.icon.super-like {
+    background-image: url('/icons/super-like.jpg');
+}
+
+.button i.icon.like {
+    background-image: url('/icons/like.jpg');
+}
+
+.button i.icon.boost {
+    background-image: url('/icons/boost.jpg');
+}
+
+.button i.icon.profile {
+    background-image: url('/icons/profile.jpg');
+}
+
+.button i.icon.home {
+    background-image: url('/icons/home.jpg');
+}
+
+.button i.icon.tchat {
+    background-image: url('/icons/tchat.jpg');
+}

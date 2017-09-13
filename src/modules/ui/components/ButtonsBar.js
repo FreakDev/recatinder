@@ -10,7 +10,7 @@ export const ButtonsBarCmp = ({ buttons, position }) => {
     return (
         <div className={ "App-buttons bar row " + pos}>
             { buttons.map( (b, k) => (
-                <Button key={ 'button=' + k } icon={b} rounded subdiv={buttons.length} />
+                <Button key={ 'button=' + k } size={ k % 2 ? "" : "small" } icon={b} rounded subdiv={buttons.length} />
             )) }
         </div>        
     )

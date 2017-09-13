@@ -6,7 +6,7 @@ class Draggable extends Component {
 
     render() {
         return (
-            <div className="draggable-frame">
+            <div className="draggable-frame" style={this.props.style} >
                 <div className="draggable">
                     { this.props.children }
                 </div>

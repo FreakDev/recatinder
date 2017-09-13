@@ -1,5 +1,15 @@
 
 .photos {
-    width: 100%;
+    width: 98%;
+    height: 100%;
     clear: both;
+    position: absolute;
+    /* background-color: #f00; */
+    box-sizing: border-box;
+    border-radius: 1.5%;
+    border: 1px solid #000;
+    margin: 1%;
+
+    background: url('/Untitled-1.jpg');
+    background-size: cover;
 }

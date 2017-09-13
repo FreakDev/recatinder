@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 import Button from '../../ui/components/Button'
 
-export const ProfileMoreCmp = ({profile}) => {
+export const ProfileMoreCmp = ({profile, expanded}) => {
     
     let distanceString = ''
     const { name, age, description } = Object.assign({}, {
@@ -11,8 +11,9 @@ export const ProfileMoreCmp = ({profile}) => {
         age: '',
         description: ''
     }, profile)
+    let opacity = expanded ? 1 : 0;
     return (
-        <div className="App-profile-more">
+        <div className="App-profile-more" style={{ opacity }}>
             <div className="row">
                 <span className="name-info">{ name }, { age }</span>
                 <span className="distance-info"><i className="icon geo-pin" />{ distanceString }</span>
@@ -29,7 +30,8 @@ export const ProfileMoreCmp = ({profile}) => {
 }
 const mapStateToProps = state => {
     return {
-        profile: state.profiles.list[state.profiles.current] 
+        profile: state.profiles.list[state.profiles.current],
+        expanded: state.profileUI.expanded
     }
 }
 

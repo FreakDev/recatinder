@@ -2,7 +2,12 @@
 @import 'bars.css';
 
 .App-header {
-    background-color: #222;
-    height: 20%;
-    top: 0px;  
+    height: 8.5%;
+    top: 0px;
+    background-color: #fff;
+}
+
+.App-header .button {
+    background-size: cover;
+    background-position: 50% 50%
 }

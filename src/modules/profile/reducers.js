@@ -13,9 +13,15 @@ const list = (state = [], action) => {
 
 const current = (state = -1, action) => state
 
-const profiles  = combineReducers({
+export const profiles  = combineReducers({
     list,
     current,
+});
+
+
+const expanded = (state = false, action) => state
+
+export const profileUI = combineReducers({
+    expanded
 })
 
-export default profiles

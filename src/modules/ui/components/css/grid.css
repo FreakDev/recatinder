@@ -1,0 +1,20 @@
+
+.row {
+    clear: both;
+}
+
+.cell {
+    float: left;
+}
+
+.cell-3 {
+    width: 33.3%;
+}
+
+.cell-5 {
+    width: 20%;
+}
+
+.cell-6 {
+    width: 16.6%;
+}
