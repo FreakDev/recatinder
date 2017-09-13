@@ -1,16 +1,52 @@
 
 export const LOAD = 'load'
+export const LOADING = 'loading'
 export const LOADED = 'loaded'
 
+export const ERROR = 'error'
+
 export function load () {
-    return {
-        type: LOAD
+    return (dispatch, getState) => {
+        dispatch(loading())
+
+        fetch('/profiles.json')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('http query failed')
+            }
+            return response
+        })
+        .catch(e => {
+            dispatch(error())
+            console.error(e)            
+        })
+        .then(response => response && response.json())
+        .then(json => {
+            if (json) {
+                dispatch(loaded(json))
+                dispatch(loading(false))
+            }
+        })
     }
 }
 
-export function loaded () {
+export function error(message) {
+    return {
+        type: ERROR,
+        message
+    }
+}
+
+export function loading(status = true) {
+    return {
+        type: LOADING,
+        action: status
+    }
+}
+
+export function loaded (data) {
     return {
         type: LOADED,
-        data: []
+        data
     }
 }

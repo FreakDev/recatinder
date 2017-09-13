@@ -1,0 +1,24 @@
+[{
+    "nom" : "Cat one",
+    "age" : 1,
+    "desciption" : "",
+    "photos" : ["/cats/1.jpg", "/cats/1.jpg", "/cats/1.jpg", "/cats/1.jpg"]
+},
+{
+    "nom" : "Cat two",
+    "age" : 1,
+    "desciption" : "",
+    "photos" : ["/cats/1.jpg", "/cats/1.jpg", "/cats/1.jpg"]
+},
+{
+    "nom" : "Cat three",
+    "age" : 1,
+    "desciption" : "",
+    "photos" : ["/cats/1.jpg", "/cats/1.jpg", "/cats/1.jpg"]
+},
+{
+    "nom" : "Cat four",
+    "age" : 1,
+    "desciption" : "",
+    "photos" : ["/cats/1.jpg", "/cats/1.jpg", "/cats/1.jpg"]
+}]

@@ -26,10 +26,10 @@
 }
 
 .button.smaller {
-    width: 25px;
-    height: 25px;
-    line-height: 25px;
-    font-size: 1.2em;
+    width: 22px;
+    height: 22px;
+    line-height: 22px;
+    font-size: 1em;
 }
 
 .button i.icon {

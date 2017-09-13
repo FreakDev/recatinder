@@ -3,17 +3,20 @@ import { connect } from 'react-redux'
 
 import './css/Photos.css'
 
-export const PhotosCmp = (photos) => {
+export const PhotosCmp = ({photos, currentPhoto}) => {
     return (
         photos.length ? (
             <div className="photos">
-                <ul className="navigator">
+                <ul className="navigator" style={{ visibility: photos.length > 1 ? 'visible' : 'hidden' }}>
                     { photos.map((photo, k) => (
-                        <li key={ "nagigator-tab-" + k } className="navigator-tab">&nbsp;</li>
+                        <li key={ "nagigator-tab-" + k } 
+                            className={['navigator-tab', 'sub-' + photos.length,  (currentPhoto === k && 'active')].join(' ')} >&nbsp;</li>
                     ) ) }
                 </ul>
-                { photos.map((photo, k) => (
-                    <div key={ "nagigator-content-" + k } className="navigator-content" style={{ backgroundImage: photo }}></div>
+                { photos.map((photo, k) => console.log(photo) || (
+                    <div key={ "nagigator-content-" + k } 
+                         className={['navigator-content', (currentPhoto === k && 'active')].join(' ')} 
+                         style={{ backgroundImage: 'url(' + photo + ')' }}></div>
                 ) ) }
             </div>
         ) : (
@@ -24,7 +27,8 @@ export const PhotosCmp = (photos) => {
 
 const mapStateToProps = state => {
     return {
-        photos: []   
+        photos: state.profiles.current !== -1 ? state.profiles.list[state.profiles.current].photos : [],
+        currentPhoto: state.profileUI.currentPhoto
     }
 }
 

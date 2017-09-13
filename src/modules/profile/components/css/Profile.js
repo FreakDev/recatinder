@@ -29,7 +29,7 @@ class ProfileCmp extends Component {
     }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch, getState) => {
     return {
         onLoad: () => { dispatch(load()) }
     }

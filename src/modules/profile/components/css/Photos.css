@@ -4,12 +4,58 @@
     height: 100%;
     clear: both;
     position: absolute;
-    /* background-color: #f00; */
     box-sizing: border-box;
-    border-radius: 1.5%;
-    border: 1px solid #000;
     margin: 1%;
+}
 
-    background: url('/Untitled-1.jpg');
-    background-size: cover;
+.photos .navigator {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 95%;
+    margin-left: 2.5%;    
+}
+
+.photos .navigator li {
+    float: left;
+    line-height: 25%;
+    height: 1%;
+    margin: 0.5%;
+    margin-top: 1.5%;    
+    box-sizing: border-box;
+    border-radius: 10%;
+}
+
+.photos .navigator li.active {
+    background-color: white;
+}
+
+.photos .navigator li.sub-2 {
+    width: 48.5%;
+}
+
+.photos .navigator li.sub-3 {
+    width: 32%;
+}
+
+.photos .navigator li.sub-4 {
+    width: 24%;
+}
+
+.photos .navigator li.sub-5 {
+    width: 19%;
+}
+
+.photos .navigator-content {
+    height: 100%;
+    display: none;
+    background-size: contain;
+    background-position: 50% 50%;
+    background-repeat: none;
+    border-radius: 1.5%;
+    box-shadow: 0px 5px 15px rgba(20, 20, 20, 0.3)
+}
+
+.photos .navigator-content.active {
+    display: block;
 }
