@@ -29,6 +29,10 @@ const currentPhoto = (state = 0, action) => {
     switch(action.type) {
         case acts.LOADED:
             return 0
+        case acts.NEXT_PHOTO:
+            return state + 1
+        case acts.PREV_PHOTO:
+            return state > 0 ? state - 1 : 0
         default:
             return state
     }

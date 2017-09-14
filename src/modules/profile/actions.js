@@ -5,6 +5,9 @@ export const LOADED = 'loaded'
 
 export const ERROR = 'error'
 
+export const NEXT_PHOTO = 'next-photo'
+export const PREV_PHOTO = 'prev-photo'
+
 export function load () {
     return (dispatch, getState) => {
         dispatch(loading())
@@ -48,5 +51,30 @@ export function loaded (data) {
     return {
         type: LOADED,
         data
+    }
+}
+
+
+
+
+export function nextPhoto () {
+    return (dispatch, getState) => {
+        const state = getState()
+        if (state.profileUI.currentPhoto < state.profiles.list[state.profiles.current].photos.length - 1) {
+            dispatch({
+                type: NEXT_PHOTO
+            })
+        }
+    }
+}
+
+export function prevPhoto () {
+    return (dispatch, getState) => {
+        const state = getState()
+        if (state.profileUI.currentPhoto > 0) {
+            dispatch({
+                type: PREV_PHOTO
+            })
+        }
     }
 }
