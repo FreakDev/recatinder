@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import './css/Draggable.css'
 
-const SWIPE_DETECTION_LIMIT = 150
+const SWIPE_DETECTION_LIMIT = 100
 
 class Draggable extends Component {
 
@@ -60,9 +60,9 @@ class Draggable extends Component {
                     animate: false
                 })
             }, 1000)
-            if (this.state.diffX < -SWIPE_DETECTION_LIMIT) {
+            if (this.state.diffX > SWIPE_DETECTION_LIMIT) {
                 this.props.onSwipeRight && this.props.onSwipeRight()
-            } else if (this.state.diffX < SWIPE_DETECTION_LIMIT) {
+            } else if (this.state.diffX < -SWIPE_DETECTION_LIMIT) {
                 this.props.onSwipeLeft && this.props.onSwipeLeft()
             } else {
                 this.props.onSwipeCanceled && this.props.onSwipeCanceled()
