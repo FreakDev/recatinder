@@ -32,6 +32,7 @@ class Draggable extends Component {
     }
 
     _onTouchMove(e) {
+        e.preventDefault();
         if (!this.state.dragging) {
             this._startingPoint = { x:e.changedTouches[0].pageX, y:e.changedTouches[0].pageY }
             this.props.onSwipeStart && this.props.onSwipeStart()            
@@ -72,7 +73,7 @@ class Draggable extends Component {
     render() {
 
         const draggableStyles = Object.assign({
-            transform: this.state.dragging ? 'translateY(' + (-this.state.diffY * 1.5) + 'px) translateX(' + (-this.state.diffX * 1.5) + 'px) rotateZ(' + (this.state.diffX / this._screenHalf) * 45 + 'deg)' : 'none',
+            transform: this.state.dragging ? 'translate3d(' + (-this.state.diffX * 1.5) + 'px, ' + (-this.state.diffY * 1.5) + 'px, 0) rotateZ(' + (this.state.diffX / this._screenHalf) * 45 + 'deg)' : 'none',
             transition: this.state.animate ? '0.4s' : 'none'
         })
 
