@@ -11,20 +11,33 @@ export class PhotosCmp extends Component {
         super(props)
 
         this._screenHalf = 0
-        this.updateWindowDimensions = this.updateWindowDimensions.bind(this)
-    }
 
-    updateWindowDimensions() {
-        this._screenHalf = Math.floor(window.innerWidth / 2);
+        this._onResize = this._onResize.bind(this)
+        this._onTouchEnd = this._onTouchEnd.bind(this)
     }
 
     componentDidMount() {
-        this.updateWindowDimensions()
-        window.addEventListener('resize', this.updateWindowDimensions)
+        this._onResize()
+        window.addEventListener('resize', this._onResize)
+    }
+
+    _onResize() {
+        this._screenHalf = Math.floor(window.innerWidth / 2);
+    }
+
+    _onTouchEnd (e) {
+        if (!this.props.preventTouchEvent) {
+            const xPos = e.changedTouches[0].pageX 
+            if (xPos > this._screenHalf) {
+                this.props.onNextPhoto()
+            } else {
+                this.props.onPrevPhoto()
+            }
+        }
     }
 
     render() {
-        let { photos, currentPhoto, onNextPhoto, onPrevPhoto } = this.props
+        let { photos, currentPhoto } = this.props
         return (
             photos.length ? (
                 <div className="photos">
@@ -38,14 +51,7 @@ export class PhotosCmp extends Component {
                         <div key={ "nagigator-content-" + k } 
                              className={['navigator-content', (currentPhoto === k && 'active')].join(' ')} 
                              style={{ backgroundImage: 'url(' + photo + ')' }}
-                             onTouchEnd={e => {
-                                 const xPos = e.changedTouches[0].pageX 
-                                 if (xPos > this._screenHalf) {
-                                    onNextPhoto()
-                                 } else {
-                                    onPrevPhoto()
-                                 }
-                             }} ></div>
+                             onTouchEnd={ this._onTouchEnd } ></div>
                     ) ) }
                 </div>
             ) : (

@@ -54,9 +54,6 @@ export function loaded (data) {
     }
 }
 
-
-
-
 export function nextPhoto () {
     return (dispatch, getState) => {
         const state = getState()

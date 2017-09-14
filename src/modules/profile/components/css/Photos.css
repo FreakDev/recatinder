@@ -49,7 +49,7 @@
 .photos .navigator-content {
     height: 100%;
     display: none;
-    background-size: contain;
+    background-size: cover;
     background-position: 50% 50%;
     background-repeat: none;
     border-radius: 1.5%;

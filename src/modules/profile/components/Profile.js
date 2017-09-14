@@ -17,9 +17,12 @@ class ProfileCmp extends Component {
     }
 
     render() {
+        let draggableProps = Object.assign({}, this.props)
+        delete draggableProps.onLoad
         return (
             <div className="App-profile">
-                <Draggable style={{ height: '83.5%' }}>
+                {/* <Photos className="next" /> */}
+                <Draggable style={{ height: '83.5%' }} { ...draggableProps }>
                     <Photos />
                     <Overlay />
                 </Draggable>
@@ -31,7 +34,12 @@ class ProfileCmp extends Component {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onLoad: () => { dispatch(load()) }
+        onLoad: () => { dispatch(load()) },
+        onSwipeStart: () => {},
+        onSwipeRight: () => { console.log('nope') },
+        onSwipeLeft: () => { console.log('like') },
+        onSwipeStart: () => {},
+        onSwipeCanceled: () => {}
     }
 }
 

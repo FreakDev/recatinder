@@ -1,15 +1,101 @@
 import React, { Component } from 'react'
-
 import './css/Draggable.css'
+
+const SWIPE_DETECTION_LIMIT = 150
 
 class Draggable extends Component {
 
+    constructor(props) {
+        super(props)
+
+        this._startingPoint = null //{ x: val, y: val }
+        this._screenHalf = 0
+        
+        this._onResize = this._onResize.bind(this)
+        this._onTouchMove = this._onTouchMove.bind(this)
+        this._onTouchEnd = this._onTouchEnd.bind(this)
+    }
+
+    state = {
+        dragging: false,
+        diffX: 0,
+        diffY: 0
+    }
+
+    componentDidMount() {
+        this._onResize()
+        window.addEventListener('resize', this._onResize)
+    }
+
+    _onResize() {
+        this._screenHalf = Math.floor(window.innerWidth / 2);
+    }
+
+    _onTouchMove(e) {
+        if (!this.state.dragging) {
+            this._startingPoint = { x:e.changedTouches[0].pageX, y:e.changedTouches[0].pageY }
+            this.props.onSwipeStart && this.props.onSwipeStart()            
+        }
+        this.setState({
+            dragging: true, 
+            diffX: this._startingPoint.x - e.changedTouches[0].pageX,
+            diffY: this._startingPoint.y - e.changedTouches[0].pageY
+        })
+    }        
+
+    _onTouchEnd(e) {
+        if(this.state.dragging) {
+            const posDiff = {
+                x: this.state.diffX,
+                y: this.state.diffY 
+            }
+            this._startingPoint = null
+            this.setState({
+                dragging: false,
+                animate: true
+            })
+            setTimeout(() => {
+                this.setState({
+                    animate: false
+                })
+            }, 1000)
+            if (this.state.diffX < -SWIPE_DETECTION_LIMIT) {
+                this.props.onSwipeRight && this.props.onSwipeRight()
+            } else if (this.state.diffX < SWIPE_DETECTION_LIMIT) {
+                this.props.onSwipeLeft && this.props.onSwipeLeft()
+            } else {
+                this.props.onSwipeCanceled && this.props.onSwipeCanceled()
+            }
+        }
+    }
+
     render() {
+
+        const draggableStyles = Object.assign({
+            transform: this.state.dragging ? 'translateY(' + (-this.state.diffY * 1.5) + 'px) translateX(' + (-this.state.diffX * 1.5) + 'px) rotateZ(' + (this.state.diffX / this._screenHalf) * 45 + 'deg)' : 'none',
+            transition: this.state.animate ? '0.4s' : 'none'
+        })
+
+        const markStyles = {
+            opacity: this.state.dragging ? Math.abs(this.state.diffX / SWIPE_DETECTION_LIMIT) : 0
+        }
+
         return (
-            <div className="draggable-frame" style={this.props.style} >
-                <div className="draggable">
-                    { this.props.children }
+            <div className="draggable-frame" style={ Object.assign(draggableStyles,this.props.style) } >
+                <div className="draggable"
+                     onTouchMove={ this._onTouchMove } 
+                     onTouchEnd={ this._onTouchEnd } 
+                     >
+
+                    { React.Children.map(this.props.children, (child) => React.cloneElement(child, { preventTouchEvent: this.state.dragging } )) }
                 </div>
+                { this.state.dragging ? this.state.diffX < 0 ? 
+                    <div className="mark like" style={ markStyles }>LIKE</div>
+                    : 
+                    <div className="mark nope" style={ markStyles }>NOPE</div>
+                 :
+                 ''
+                }
             </div>
         )
     }
