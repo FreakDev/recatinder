@@ -2,32 +2,35 @@ import { combineReducers } from 'redux'
 
 import * as acts from './actions'
 
-const list = (state = [], action) => {
+const current = (state = null, action) => {
     switch (action.type) {
         case acts.LOADED:
-            return action.data
+        case acts.LIKE:
+            return action.current
         default:
             return state;
     }
 }
 
-const current = (state = -1, action) => {
+const next = (state = null, action) => {
     switch (action.type) {
         case acts.LOADED:
-            return 0
+        case acts.LIKE:        
+            return action.next
         default:
             return state
     }
 }
 
 export const profiles  = combineReducers({
-    list,
+    next,
     current,
 })
 
 const currentPhoto = (state = 0, action) => {
     switch(action.type) {
         case acts.LOADED:
+        case acts.LIKE:
             return 0
         case acts.NEXT_PHOTO:
             return state + 1
@@ -47,10 +50,33 @@ const expanded = (state = false, action) => {
     }
 }
 
+const goNext = (state = 0, action) => {
+    switch(action.type) {
+        case acts.GO_NEXT:
+            return action.direction
+        case acts.LIKE:
+        case acts.NOPE:
+            return 0
+        default:
+            return state
+    }
+}
+
+// const goNext = (state = false, action) => {
+//     switch(action.type) {
+//         case LIKE:
+//         case NOPE:
+//             return true
+//         default:
+//             return state
+//     }
+// }
+
 export const buttons = (state = ['refresh', 'nope', 'super-like', 'like', 'boost'], action) => state
 
 export const profileUI = combineReducers({
     expanded,
+    goNext,
     currentPhoto,
     buttons    
 })

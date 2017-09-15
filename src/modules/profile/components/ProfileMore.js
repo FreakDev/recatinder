@@ -41,7 +41,7 @@ export const ProfileMoreCmp = ({profile, expanded, onClickBack}) => {
 }
 const mapStateToProps = state => {
     return {
-        profile: state.profiles.list[state.profiles.current],
+        profile: state.profiles.current,
         expanded: state.profileUI.expanded
     }
 }

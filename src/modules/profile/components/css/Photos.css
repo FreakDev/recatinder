@@ -24,10 +24,13 @@
     margin-top: 1.5%;    
     box-sizing: border-box;
     border-radius: 10%;
+    background-color: #aaaaaa;
+    opacity: 0.3;    
 }
 
 .photos .navigator li.active {
     background-color: white;
+    opacity: 1;
 }
 
 .photos .navigator li.sub-2 {

@@ -1,14 +1,30 @@
+import profilesData from './profilesData'
+
+export const ERROR = 'error'
 
 export const LOAD = 'load'
 export const LOADING = 'loading'
 export const LOADED = 'loaded'
 
-export const ERROR = 'error'
+export const GO_NEXT = 'go-next'
+export const LIKE = 'like'
+export const NOPE = 'nope'
 
 export const NEXT_PHOTO = 'next-photo'
 export const PREV_PHOTO = 'prev-photo'
 
 export const EXPAND_PROFILE = 'expand-profile'
+
+
+// PROFIL
+
+export function error(message) {
+    return {
+        type: ERROR,
+        message
+    }
+}
+
 
 export function load () {
     return (dispatch, getState) => {
@@ -28,17 +44,11 @@ export function load () {
         .then(response => response && response.json())
         .then(json => {
             if (json) {
-                dispatch(loaded(json))
+                profilesData.load(json)
+                dispatch(loaded())
                 dispatch(loading(false))
             }
         })
-    }
-}
-
-export function error(message) {
-    return {
-        type: ERROR,
-        message
     }
 }
 
@@ -49,24 +59,50 @@ export function loading(status = true) {
     }
 }
 
-export function loaded (data) {
+export function loaded() {
     return {
         type: LOADED,
-        data
+        current: profilesData.current(),
+        next: profilesData.next()
     }
 }
 
-export function expandProfile(open = true) {
+export function goNext(direction) {
     return {
-        type: EXPAND_PROFILE,
-        open
+        type: GO_NEXT,
+        direction,
     }
 }
+
+export function liked() {
+    return {
+        type: LIKE,
+        current: profilesData.current(),
+        next: profilesData.next()
+    }
+}
+
+export function like() {
+    return (dispatch, getState) => {
+        dispatch(goNext(1))
+        setTimeout(() => {
+            dispatch(liked())
+        }, 500)
+    }
+}
+
+export function nope() {
+    
+}
+
+
+
+// PHOTOS
 
 export function nextPhoto () {
     return (dispatch, getState) => {
         const state = getState()
-        if (state.profileUI.currentPhoto < state.profiles.list[state.profiles.current].photos.length - 1) {
+        if (state.profileUI.currentPhoto < state.profiles.current.photos.length - 1) {
             dispatch({
                 type: NEXT_PHOTO
             })
@@ -82,5 +118,12 @@ export function prevPhoto () {
                 type: PREV_PHOTO
             })
         }
+    }
+}
+
+export function expandProfile(open = true) {
+    return {
+        type: EXPAND_PROFILE,
+        open
     }
 }

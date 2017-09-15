@@ -22,7 +22,7 @@ export const OveralyCmp = (props) => {
 
 const mapStateToProps = state => {
     return {
-        ...state.profiles[state.profiles.current]
+        ...state.profiles.current
     }
 }
 

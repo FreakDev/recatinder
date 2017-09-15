@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 
 import { load } from '../actions'
 import { nextPhoto, prevPhoto } from '../actions'
+import { like, nope } from '../actions'
 
 import ProfileMore from './ProfileMore'
 import Photos from './Photos'
@@ -26,7 +27,9 @@ class ProfileCmp extends Component {
         this.props.onLoad()
 
         this._onDrag = this._onDrag.bind(this)
-        this._onDragCanceled = this._onDragCanceled.bind(this)
+        this._onDragEnd = this._onDragEnd.bind(this)
+        this._onSwipeLeft = this._onSwipeLeft.bind(this)
+        this._onSwipeRight = this._onSwipeRight.bind(this)
     }
 
     _onDrag(e) {
@@ -36,26 +39,48 @@ class ProfileCmp extends Component {
         })
     }
 
-    _onDragCanceled() {
+    _reset() {
         this.setState(initialState)
     }
 
+    _onDragEnd() {
+        this._reset()
+    }
+
+    _onSwipeLeft() {
+        this.props.onSwipeLeft()
+    }
+
+    _onSwipeRight() {
+        this.props.onSwipeRight()
+    }
+
     render() {
-        const { draggableProps, photoIndex, disableDrag, profile, profileNext, onNextPhoto, onPrevPhoto } = this.props
+        const { photoIndex, disableDrag, profile, profileNext, onNextPhoto, onPrevPhoto, goNext } = this.props
+        let targetStyle
+        if (goNext) {
+            targetStyle = { opacity: 0 }
+        }
         return (
-            <div className={ 'App-profile ' + (this.props.expanded && 'expanded') }>
+            <div className={ 'App-profile' + (this.props.expanded ? ' expanded':'') + (goNext !== 0 ? ' goNext' : '')}>
                 <div className="next" style={ Object.assign({ transform: 'scale(' + this.state.nextScale + ')', opacity: this.state.nextOpacity }, styleHeight) } >
                     <Photos photos={ profileNext } />
                 </div>
-                <Draggable style={ styleHeight } 
-                            { ...draggableProps } 
-                            disable={ disableDrag } 
-                            onDrag={ this._onDrag }
-                            onSwipeCanceled={ this._onDragCanceled } >
-                    <Photos photos={ profile } currentPhoto={ photoIndex } onNextPhoto={ onNextPhoto } onPrevPhoto={ onPrevPhoto } />
-                    <Overlay { ...this.props.profile } />
-                </Draggable>
-                <ProfileMore />
+                <div className="current" style={ styleHeight }>
+                    <Draggable disable={ disableDrag } 
+                               onDrag={ this._onDrag }
+                               onSwipeLeft={ this._onSwipeLeft }
+                               onSwipeRight={ this._onSwipeRight }
+                               onSwipeCanceled={ this._onDragEnd }
+                               style={ targetStyle } >
+                        <Photos photos={ profile } 
+                                currentPhoto={ photoIndex } 
+                                onNextPhoto={ onNextPhoto } 
+                                onPrevPhoto={ onPrevPhoto } />
+                        <Overlay { ...this.props.profile } />
+                    </Draggable>
+                    <ProfileMore />
+                </div>
                 <ButtonsBar />                
             </div>
         )
@@ -64,22 +89,19 @@ class ProfileCmp extends Component {
 
 const mapStateToProps = state => {
     return {
-        profile: state.profiles.current !== -1 ? state.profiles.list[state.profiles.current].photos : [],
-        profileNext: state.profiles.current !== -1 ? state.profiles.list[state.profiles.current + 1].photos : [],
+        profile: state.profiles.current ? state.profiles.current.photos : [],
+        profileNext: state.profiles.next ? state.profiles.next.photos : [],
         photoIndex: state.profileUI.currentPhoto,
-        expanded: state.profileUI.expanded
+        expanded: state.profileUI.expanded,
+        goNext: state.profileUI.goNext
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
         onLoad: () => { dispatch(load()) }, 
-        draggableProps: {
-            onSwipeStart: () => {},
-            onSwipeRight: () => { console.log('nope') },
-            onSwipeLeft: () => { console.log('like') },
-            onSwipeCanceled: () => {},    
-        },
+        onSwipeRight: () => { console.log('nope') },
+        onSwipeLeft: () => { dispatch(like()) },
         onNextPhoto: () => dispatch(nextPhoto()),
         onPrevPhoto: () => dispatch(prevPhoto())
     }

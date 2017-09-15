@@ -29,3 +29,7 @@
     position: absolute;
     width: 100%;
 }
+
+.goNext .next {
+    opacity: 1;
+}
