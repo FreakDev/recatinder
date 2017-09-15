@@ -4,7 +4,6 @@ import { Provider } from 'react-redux'
 import store from './store'
 
 import Header from './modules/ui/components/Header'
-import ButtonsBar from './modules/ui/components/ButtonsBar'
 
 import Profile from './modules/profile/components/Profile'
 
@@ -18,7 +17,6 @@ class App extends Component {
         <div className="App">
           <Header />
           <Profile />
-          <ButtonsBar />
         </div>
       </Provider>
     );

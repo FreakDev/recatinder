@@ -1,17 +1,19 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
+import { expandProfile } from '../actions'
+
 import Button from '../../ui/components/Button'
 
 import './css/Overlay.css'
 
 export const OveralyCmp = (props) => {
-    const { name, age } = Object.assign({
+    const { name, age, onClick } = Object.assign({
         name: 'Mellys',
-        age: ''
+        age: '',
     }, props)
     return (
-        <div className="overlay">
+        <div className="overlay" onClick={ onClick }>
             <span className="name-info">{ name }, { age }</span>
             <Button rounded size="smaller" style={{ color: 'black' }} >i</Button>
         </div>
@@ -24,6 +26,12 @@ const mapStateToProps = state => {
     }
 }
 
-const Overaly = connect(mapStateToProps, null)(OveralyCmp)
+const mapDispatchToProps = dispatch => {
+    return {
+        onClick: () => { console.log('click info'); dispatch(expandProfile()) }
+    }
+}
+
+const Overaly = connect(mapStateToProps, mapDispatchToProps)(OveralyCmp)
 
 export default Overaly

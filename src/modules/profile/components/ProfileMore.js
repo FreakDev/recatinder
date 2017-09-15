@@ -1,9 +1,13 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
+import { expandProfile } from '../actions'
+
 import Button from '../../ui/components/Button'
 
-export const ProfileMoreCmp = ({profile, expanded}) => {
+import './css/ProfileMore.css'
+
+export const ProfileMoreCmp = ({profile, expanded, onClickBack}) => {
     
     let distanceString = ''
     const { name, age, description } = Object.assign({}, {
@@ -11,20 +15,19 @@ export const ProfileMoreCmp = ({profile, expanded}) => {
         age: '',
         description: ''
     }, profile)
-    let opacity = expanded ? 1 : 0;
     return (
-        <div className="App-profile-more" style={{ opacity }}>
-            <div className="row">
+        <div className="profile-more">
+            <div className="row name-row">
                 <span className="name-info">{ name }, { age }</span>
                 <span className="distance-info"><i className="icon geo-pin" />{ distanceString }</span>
             </div>
-                <div className="row">
+                <div className="row share-row">
                 <span className="share-info">recommandez { name }<br />a des amis</span>
             </div>
-            <div className="row">
+            <div className="row description-row">
                 <span className="description-info">{ description }</span>
             </div>
-            <Button icon="less" rounded />
+            <Button icon="less" rounded onClick={ onClickBack } />
         </div>
     )
 }
@@ -35,6 +38,12 @@ const mapStateToProps = state => {
     }
 }
 
-const ProfileMore = connect(mapStateToProps, null)(ProfileMoreCmp)
+const mapDispatchToProps = dispatch => {
+    return {
+        onClickBack: () => { dispatch(expandProfile(false)) }
+    }
+}
+
+const ProfileMore = connect(mapStateToProps, mapDispatchToProps)(ProfileMoreCmp)
 
 export default ProfileMore

@@ -38,10 +38,20 @@ const currentPhoto = (state = 0, action) => {
     }
 }
 
-const expanded = (state = false, action) => state
+const expanded = (state = false, action) => {
+    switch (action.type) {
+        case acts.EXPAND_PROFILE:
+            return action.open
+        default:
+            return state
+    }
+}
+
+export const buttons = (state = ['refresh', 'nope', 'super-like', 'like', 'boost'], action) => state
 
 export const profileUI = combineReducers({
     expanded,
-    currentPhoto
+    currentPhoto,
+    buttons    
 })
 

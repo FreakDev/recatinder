@@ -46,10 +46,6 @@ class Draggable extends Component {
 
     _onTouchEnd(e) {
         if(this.state.dragging) {
-            const posDiff = {
-                x: this.state.diffX,
-                y: this.state.diffY 
-            }
             this._startingPoint = null
             this.setState({
                 dragging: false,
@@ -59,7 +55,7 @@ class Draggable extends Component {
                 this.setState({
                     animate: false
                 })
-            }, 1000)
+            }, 400)
             if (this.state.diffX > SWIPE_DETECTION_LIMIT) {
                 this.props.onSwipeRight && this.props.onSwipeRight()
             } else if (this.state.diffX < -SWIPE_DETECTION_LIMIT) {

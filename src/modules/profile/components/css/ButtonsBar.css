@@ -1,0 +1,18 @@
+
+@import '../../../ui/components/css/bars.css';
+
+.buttons {
+    position: fixed;
+    height: 15%;
+    opacity: 1;
+    transition: 0.4s;
+}
+
+.expanded .buttons {
+    
+}
+
+.buttons.down {
+    bottom: 0;
+}
+

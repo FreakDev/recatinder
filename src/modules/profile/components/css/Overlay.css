@@ -6,6 +6,13 @@
     bottom: -1%;
     box-sizing: border-box;
     color: white;
+    opacity: 1;
+    transition: 0.4s;
+}
+
+.expanded .overlay {
+    display: none;
+    opacity: 0;
 }
 
 .overlay .name-info {

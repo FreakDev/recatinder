@@ -8,6 +8,8 @@ export const ERROR = 'error'
 export const NEXT_PHOTO = 'next-photo'
 export const PREV_PHOTO = 'prev-photo'
 
+export const EXPAND_PROFILE = 'expand-profile'
+
 export function load () {
     return (dispatch, getState) => {
         dispatch(loading())
@@ -51,6 +53,13 @@ export function loaded (data) {
     return {
         type: LOADED,
         data
+    }
+}
+
+export function expandProfile(open = true) {
+    return {
+        type: EXPAND_PROFILE,
+        open
     }
 }
 
