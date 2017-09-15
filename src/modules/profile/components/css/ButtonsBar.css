@@ -9,7 +9,8 @@
 }
 
 .expanded .buttons {
-    
+    z-index: 5000;
+    background-image: linear-gradient(to top, #FFFFFF, #FFFFFF, rgba(255,255,255,0), rgba(255,255,255,0));
 }
 
 .buttons.down {

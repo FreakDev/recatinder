@@ -9,25 +9,33 @@ import './css/ProfileMore.css'
 
 export const ProfileMoreCmp = ({profile, expanded, onClickBack}) => {
     
-    let distanceString = ''
-    const { name, age, description } = Object.assign({}, {
+    const { name, age, description, distance } = Object.assign({}, {
         name:'...',
         age: '',
+        distance: '',
         description: ''
     }, profile)
     return (
         <div className="profile-more">
             <div className="row name-row">
-                <span className="name-info">{ name }, { age }</span>
-                <span className="distance-info"><i className="icon geo-pin" />{ distanceString }</span>
+                <p className="name-info">{ name }, { age }</p>
+                <p className="distance-info">
+                    { distance ? 
+                        <span> <i className="icon geo-pin" />{ distance } km </span> :
+                        <span>&nbsp;</span>
+                    }
+                </p>
             </div>
-                <div className="row share-row">
-                <span className="share-info">recommandez { name }<br />a des amis</span>
+            <div className="row share-row">
+                <p><span className="share-info first-line">recommandez { name }</span><span className="share-info second-line">à des amis</span></p>
             </div>
+            <div className="row report-row">
+                <p>signalez  { name }</p>
+            </div>            
             <div className="row description-row">
                 <span className="description-info">{ description }</span>
             </div>
-            <Button icon="less" rounded onClick={ onClickBack } />
+            <Button icon="back" rounded onClick={ onClickBack } />
         </div>
     )
 }

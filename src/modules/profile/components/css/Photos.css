@@ -56,6 +56,10 @@
     box-shadow: 0px 5px 15px rgba(20, 20, 20, 0.3)
 }
 
+.expanded .photos .navigator-content {
+    box-shadow: none;    
+}
+
 .photos .navigator-content.active {
     display: block;
 }

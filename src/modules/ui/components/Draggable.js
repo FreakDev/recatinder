@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import './css/Draggable.css'
 
-const SWIPE_DETECTION_LIMIT = 100
+export const SWIPE_DETECTION_LIMIT = 100
 
 class Draggable extends Component {
 
@@ -33,16 +33,19 @@ class Draggable extends Component {
 
     _onTouchMove(e) {
         e.preventDefault();
-        if (!this.state.dragging) {
-            this._startingPoint = { x:e.changedTouches[0].pageX, y:e.changedTouches[0].pageY }
-            this.props.onSwipeStart && this.props.onSwipeStart()            
+        if (!this.props.disable) {
+            if (!this.state.dragging) {
+                this._startingPoint = { x:e.changedTouches[0].pageX, y:e.changedTouches[0].pageY }
+                this.props.onSwipeStart && this.props.onSwipeStart()            
+            }
+            this.setState({
+                dragging: true, 
+                diffX: this._startingPoint.x - e.changedTouches[0].pageX,
+                diffY: this._startingPoint.y - e.changedTouches[0].pageY
+            })
+            this.props.onDrag({ distance: Math.sqrt(Math.pow(this.state.diffX, 2) + Math.pow(this.state.diffY, 2)) })
         }
-        this.setState({
-            dragging: true, 
-            diffX: this._startingPoint.x - e.changedTouches[0].pageX,
-            diffY: this._startingPoint.y - e.changedTouches[0].pageY
-        })
-    }        
+    }
 
     _onTouchEnd(e) {
         if(this.state.dragging) {
@@ -81,10 +84,10 @@ class Draggable extends Component {
             <div className="draggable-frame" style={ Object.assign(draggableStyles,this.props.style) } >
                 <div className="draggable"
                      onTouchMove={ this._onTouchMove } 
-                     onTouchEnd={ this._onTouchEnd } 
-                     >
-
-                    { React.Children.map(this.props.children, (child) => React.cloneElement(child, { preventTouchEvent: this.state.dragging } )) }
+                     onTouchEnd={ this._onTouchEnd } >
+                    <div className="content">
+                        { React.Children.map(this.props.children, (child) => React.cloneElement(child, { preventTouchEvent: this.state.dragging } )) }
+                    </div>
                 </div>
                 { this.state.dragging ? this.state.diffX < 0 ? 
                     <div className="mark like" style={ markStyles }>LIKE</div>

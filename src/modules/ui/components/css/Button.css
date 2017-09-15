@@ -10,7 +10,6 @@
     transform: translateX(-50%) translateY(-50%);
     box-sizing: border-box;
     background-color: #fff;
-    font-family: 'Roboto Condensed', sans-serif;    
 }
 
 .button.rounded {

@@ -28,7 +28,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onClick: () => { console.log('click info'); dispatch(expandProfile()) }
+        onClick: () => dispatch(expandProfile())
     }
 }
 

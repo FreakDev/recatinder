@@ -1,11 +1,8 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
-
-import { nextPhoto, prevPhoto } from '../actions'
 
 import './css/Photos.css'
 
-export class PhotosCmp extends Component {
+export class Photos extends Component {
 
     constructor(props) {
         super(props)
@@ -38,6 +35,7 @@ export class PhotosCmp extends Component {
 
     render() {
         let { photos, currentPhoto } = this.props
+        currentPhoto = currentPhoto || 0
         return (
             photos.length ? (
                 <div className="photos">
@@ -61,21 +59,5 @@ export class PhotosCmp extends Component {
     
     }
 }
-
-const mapStateToProps = state => {
-    return {
-        photos: state.profiles.current !== -1 ? state.profiles.list[state.profiles.current].photos : [],
-        currentPhoto: state.profileUI.currentPhoto
-    }
-}
-
-const mapDispatchToProps = dispatch => {
-    return {
-        onNextPhoto: () => { dispatch(nextPhoto()) },
-        onPrevPhoto: () => { dispatch(prevPhoto()) }
-    }
-}
-
-const Photos = connect(mapStateToProps, mapDispatchToProps)(PhotosCmp)
 
 export default Photos

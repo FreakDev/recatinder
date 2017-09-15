@@ -23,3 +23,9 @@
     transform: translateY(4500%) scale(0.8);
     transition: 0.4s
 }
+
+.next {
+    transform: scale(0.95);
+    position: absolute;
+    width: 100%;
+}

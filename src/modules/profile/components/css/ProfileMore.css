@@ -1,17 +1,21 @@
 
 
 .profile-more {
-    display: none;
-    height: 40%;
+    /* display: none; */
+    height: 50%;
     z-index: 2000;
     position: relative;
     opacity: 0;    
+    transition: 0.5s;
+    transform: translate3d(0, 0%, 0);
+    will-change: transition, opacity, transform;
 }
 
 .expanded .profile-more {
     opacity: 1;
-    display: block;
-    transform: translateY(-60%);    
+    transition: 0.3s;
+    /* display: block; */
+    transform: translate3d(0, -48%, 0);
 }
 
 .profile-more .button {
@@ -20,9 +24,54 @@
     left: 85%;
 }
 
+.profile-more .back {
+    background: url('/icons/back.jpg');    
+}
+
 .name-row {
-    line-height: 1.5em;
-    font-size: 2.1em;
+    padding: 3%;
+    text-align: left;    
+}
+
+.name-row p {
+    margin: 0;
+}
+
+.name-row .name-info {
+    line-height: 1.7em;
+    font-size: 1.6em;
     text-align: left;
-    padding: 5%;
+}
+
+.share-row, .report-row {
+    border-top: 1px solid #f1f1f1;
+    border-bottom: 1px solid #f1f1f1;
+    text-transform: uppercase;
+    line-height: 1.2em;
+    font-size: 1em;
+    color: red;
+    padding: 3.5%;
+    letter-spacing: 0.15em;
+}
+
+.share-row p {
+    margin: 0;
+}
+
+.share-row span {
+    display: block;
+}
+
+.share-row .second-line {
+    line-height: 1.2em;
+    font-size: 0.8em;    
+}
+
+.report-row {
+    padding: 0;
+    color: #dadada;
+}
+
+.description-row {
+    height: 50%;
 }
