@@ -38,7 +38,7 @@ export class Photos extends Component {
         currentPhoto = currentPhoto || 0
         return (
             photos.length ? (
-                <div className="photos">
+                <div className="photos" style={ this.props.style }>
                     <ul className="navigator" style={{ visibility: photos.length > 1 ? 'visible' : 'hidden' }}>
                         { photos.map((photo, k) => (
                             <li key={ "nagigator-tab-" + k } 

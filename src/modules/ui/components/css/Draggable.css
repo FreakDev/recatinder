@@ -7,7 +7,7 @@
     z-index: 1000;
 
     will-change: transform;
-    touch-action: none;
+    /* touch-action: none; */
 }
 
 .draggable-frame .mark {

@@ -7,7 +7,7 @@ import Button from '../../ui/components/Button'
 
 import './css/ProfileMore.css'
 
-export const ProfileMoreCmp = ({profile, expanded, onClickBack}) => {
+export const ProfileMoreCmp = ({profile, style, onClickBack}) => {
     
     const { name, age, description, distance } = Object.assign({}, {
         name:'...',
@@ -15,8 +15,9 @@ export const ProfileMoreCmp = ({profile, expanded, onClickBack}) => {
         distance: '',
         description: ''
     }, profile)
+
     return (
-        <div className="profile-more">
+        <div className="profile-more" style={ style }>
             <div className="row name-row">
                 <p className="name-info">{ name }, { age }</p>
                 <p className="distance-info">
@@ -27,7 +28,7 @@ export const ProfileMoreCmp = ({profile, expanded, onClickBack}) => {
                 </p>
             </div>
             <div className="row share-row">
-                <p><span className="share-info first-line">recommandez { name }</span><span className="share-info second-line">à des amis</span></p>
+                <p><span className="share-info first-line">recommandez le chat { name }</span><span className="share-info second-line">à des amis</span></p>
             </div>
             <div className="row report-row">
                 <p>signalez  { name }</p>
@@ -39,10 +40,10 @@ export const ProfileMoreCmp = ({profile, expanded, onClickBack}) => {
         </div>
     )
 }
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
     return {
+        ...ownProps,
         profile: state.profiles.current,
-        expanded: state.profileUI.expanded
     }
 }
 

@@ -62,16 +62,6 @@ const goNext = (state = 0, action) => {
     }
 }
 
-// const goNext = (state = false, action) => {
-//     switch(action.type) {
-//         case LIKE:
-//         case NOPE:
-//             return true
-//         default:
-//             return state
-//     }
-// }
-
 export const buttons = (state = ['refresh', 'nope', 'super-like', 'like', 'boost'], action) => state
 
 export const profileUI = combineReducers({

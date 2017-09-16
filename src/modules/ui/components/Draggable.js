@@ -3,6 +3,13 @@ import './css/Draggable.css'
 
 export const SWIPE_DETECTION_LIMIT = 100
 
+const INITIAL_STATE = {
+    dragging: false,
+    diffX: 0,
+    diffY: 0,
+    animate: false,
+}
+
 class Draggable extends Component {
 
     constructor(props) {
@@ -16,11 +23,7 @@ class Draggable extends Component {
         this._onTouchEnd = this._onTouchEnd.bind(this)
     }
 
-    state = {
-        dragging: false,
-        diffX: 0,
-        diffY: 0
-    }
+    state = INITIAL_STATE
 
     componentDidMount() {
         this._onResize()
@@ -33,27 +36,30 @@ class Draggable extends Component {
 
     _onTouchMove(e) {
         e.preventDefault();
-        if (!this.props.disable) {
-            if (!this.state.dragging) {
-                this._startingPoint = { x:e.changedTouches[0].pageX, y:e.changedTouches[0].pageY }
-                this.props.onSwipeStart && this.props.onSwipeStart()            
-            }
-            this.setState({
-                dragging: true, 
-                diffX: this._startingPoint.x - e.changedTouches[0].pageX,
-                diffY: this._startingPoint.y - e.changedTouches[0].pageY
-            })
-            this.props.onDrag({ distance: Math.sqrt(Math.pow(this.state.diffX, 2) + Math.pow(this.state.diffY, 2)) })
+        let nextState = { dragging: true }
+
+        if (!this.state.dragging) {
+            this._startingPoint = { x:e.changedTouches[0].pageX, y:e.changedTouches[0].pageY }
+            this.props.onSwipeStart && this.props.onSwipeStart()            
         }
+        const eventData = {
+            diffX: this._startingPoint.x - e.changedTouches[0].pageX,
+            diffY: this._startingPoint.y - e.changedTouches[0].pageY
+        }
+        
+        if (!this.props.disable) {
+            Object.assign(nextState, eventData)
+        }
+        this.setState(nextState)
+        
+        this.props.onDrag(eventData)
+
     }
 
     _onTouchEnd(e) {
         if(this.state.dragging) {
             this._startingPoint = null
-            this.setState({
-                dragging: false,
-                animate: true
-            })
+            this.setState(Object.assign({}, INITIAL_STATE, {animate: true}))
             setTimeout(() => {
                 this.setState({
                     animate: false
@@ -81,7 +87,7 @@ class Draggable extends Component {
         }
 
         return (
-            <div className="draggable-frame" style={ Object.assign(draggableStyles,this.props.style) } >
+            <div className={ 'draggable-frame' + (this.props.className ? ' ' + this.props.className : '') } style={ Object.assign(draggableStyles,this.props.style) } >
                 <div className="draggable"
                      onTouchMove={ this._onTouchMove } 
                      onTouchEnd={ this._onTouchEnd } >

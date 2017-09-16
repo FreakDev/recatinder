@@ -2,9 +2,11 @@
 @import 'bars.css';
 
 .App-header {
-    height: 8.5%;
+    height: 8.9%;
     top: 0px;
     background-color: #fff;
+    box-shadow: rgba(220,220,220,0.3) 0 4px 4px;
+    z-index: 2000;
 }
 
 .App-header .button {

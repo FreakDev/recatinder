@@ -5,17 +5,13 @@
     height: 70%;
     z-index: 2000;
     position: relative;
-    opacity: 0;    
-    transition: 0.5s;
-    transform: translate3d(0, 0%, 0);
-    will-change: transition, opacity, transform;
+    display: none;
+    top: 97.5%;
 }
 
 .expanded .profile-more {
-    opacity: 1;
-    transition: 0.3s;
-    /* display: block; */
-    transform: translate3d(0, -42%, 0);
+    display: block;
+    transform: scale(0.9);
 }
 
 .profile-more .button {
@@ -49,7 +45,7 @@
     text-transform: uppercase;
     line-height: 1.2em;
     font-size: 1em;
-    color: red;
+    color: #fd5068;
     padding: 3.5%;
     letter-spacing: 0.15em;
 }
@@ -74,4 +70,28 @@
 
 .description-row {
     height: 50%;
+}
+
+.expanded .profile-more .button  {
+    will-change: top;
+    animation: 0.7s bounce;
+    animation-delay: 0.3s;
+}
+
+@keyframes bounce {
+    0% { 
+        top: 0%;
+    }
+    25% { 
+        top: -2%;
+    }
+    50% {
+        top: 0.75%;
+    }
+    75% {
+        top: -0.5%;
+    }
+    100% {
+        top: 0%;
+    }
 }
