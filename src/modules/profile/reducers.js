@@ -6,6 +6,7 @@ const current = (state = null, action) => {
     switch (action.type) {
         case acts.LOADED:
         case acts.LIKE:
+        case acts.NOPE:
             return action.current
         default:
             return state;
@@ -15,7 +16,8 @@ const current = (state = null, action) => {
 const next = (state = null, action) => {
     switch (action.type) {
         case acts.LOADED:
-        case acts.LIKE:        
+        case acts.LIKE:
+        case acts.NOPE:        
             return action.next
         default:
             return state

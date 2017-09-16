@@ -66,9 +66,9 @@ class Draggable extends Component {
                 })
             }, 400)
             if (this.state.diffX > SWIPE_DETECTION_LIMIT) {
-                this.props.onSwipeRight && this.props.onSwipeRight(Object.assign({}, this.state))
-            } else if (this.state.diffX < -SWIPE_DETECTION_LIMIT) {
                 this.props.onSwipeLeft && this.props.onSwipeLeft(Object.assign({}, this.state))
+            } else if (this.state.diffX < -SWIPE_DETECTION_LIMIT) {
+                this.props.onSwipeRight && this.props.onSwipeRight(Object.assign({}, this.state))
             } else {
                 this.props.onSwipeCanceled && this.props.onSwipeCanceled()
             }

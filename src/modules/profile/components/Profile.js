@@ -42,7 +42,7 @@ class ProfileCmp extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (this.props.goNext === 1 && nextProps.goNext === 0)
+        if (this.props.goNext !== 0 && nextProps.goNext === 0)
             this._reset()
     }
 
@@ -71,23 +71,28 @@ class ProfileCmp extends Component {
         this.setState(INITIAL_STATE)
     }
 
+    _setGoNextState() {
+        this.setState({
+            nextScale: 1,
+            nextOpacity: 1
+        })
+    }
+
     _onDragEnd() {
         this._reset()
     }
 
-    _onSwipeLeft() {
+    _onSwipeRight() {
         if (!this.props.expanded) {
-            this.setState({
-                nextScale: 1,
-                nextOpacity: 1
-            })
-            this.props.onSwipeLeft()
+            this._setGoNextState()
+            this.props.onSwipeRight()
         }
     }
 
-    _onSwipeRight() {
+    _onSwipeLeft() {
         if (!this.props.expanded) {
-            this.props.onSwipeRight()
+            this._setGoNextState()
+            this.props.onSwipeLeft()
         }
     }
 
@@ -100,9 +105,10 @@ class ProfileCmp extends Component {
         return (
             <div ref={r => this._containerNode = r} className={ 'App-profile' + (this.props.expanded ? ' expanded':'') + (goNext !== 0 ? ' goNext' : '')}>
                 <div className="next" style={ Object.assign(this.state.nextScale ? { transform: 'scale(' + this.state.nextScale + ')', opacity: this.state.nextOpacity } : {}, styleHeight) } >
-                    <Photos photos={ profileNext } />
+                    <Photos photos={ profileNext.photos || [] } />
+                    <Overlay { ...this.props.profileNext } />
                 </div>
-                <div className="current" style={ styleHeight }>
+                <div className="current" style={ styleHeight } >
                     <Draggable disable={ disableDrag } 
                                onDrag={ this._onDrag }
                                onSwipeLeft={ this._onSwipeLeft }
@@ -110,7 +116,7 @@ class ProfileCmp extends Component {
                                onSwipeCanceled={ this._onDragEnd }
                                style={ targetStyle }
                                className={ this.state.photoScale ? 'growing' : '' } >
-                        <Photos photos={ profile } 
+                        <Photos photos={ profile.photos || [] } 
                                 currentPhoto={ photoIndex } 
                                 onNextPhoto={ onNextPhoto } 
                                 onPrevPhoto={ onPrevPhoto } 
@@ -127,8 +133,8 @@ class ProfileCmp extends Component {
 
 const mapStateToProps = state => {
     return {
-        profile: state.profiles.current ? state.profiles.current.photos : [],
-        profileNext: state.profiles.next ? state.profiles.next.photos : [],
+        profile: state.profiles.current ? state.profiles.current : [],
+        profileNext: state.profiles.next ? state.profiles.next : [],
         photoIndex: state.profileUI.currentPhoto,
         expanded: state.profileUI.expanded,
         goNext: state.profileUI.goNext
@@ -138,8 +144,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = (dispatch) => {
     return {
         onLoad: () => { dispatch(load()) }, 
-        onSwipeRight: () => { console.log('nope') },
-        onSwipeLeft: () => { dispatch(like()) },
+        onSwipeLeft: () => { dispatch(nope()) },
+        onSwipeRight: () => { dispatch(like()) },
         onNextPhoto: () => dispatch(nextPhoto()),
         onPrevPhoto: () => dispatch(prevPhoto())
     }

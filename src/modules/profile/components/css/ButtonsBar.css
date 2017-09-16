@@ -13,6 +13,20 @@
     background-image: linear-gradient(to top, #FFFFFF, #FFFFFF, rgba(255,255,255,0), rgba(255,255,255,0));
 }
 
+.expanded .buttons .cell {
+    will-change: opacity;
+    transition: 0.2s;
+    opacity: 1;
+}
+
+.expanded .buttons .cell:first-child {
+    opacity: 0;
+}
+
+.expanded .buttons .cell:last-child {
+    opacity: 0;
+}
+
 .buttons.down {
     bottom: 0;
 }

@@ -20,18 +20,12 @@ export const OveralyCmp = (props) => {
     )
 }
 
-const mapStateToProps = state => {
-    return {
-        ...state.profiles.current
-    }
-}
-
 const mapDispatchToProps = dispatch => {
     return {
         onClick: () => dispatch(expandProfile())
     }
 }
 
-const Overaly = connect(mapStateToProps, mapDispatchToProps)(OveralyCmp)
+const Overaly = connect(null, mapDispatchToProps)(OveralyCmp)
 
 export default Overaly

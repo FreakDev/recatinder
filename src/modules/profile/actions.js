@@ -59,7 +59,7 @@ export function loading(status = true) {
     }
 }
 
-export function loaded() {
+function loaded() {
     return {
         type: LOADED,
         current: profilesData.current(),
@@ -74,7 +74,7 @@ export function goNext(direction) {
     }
 }
 
-export function liked() {
+function liked() {
     return {
         type: LIKE,
         current: profilesData.current(),
@@ -91,8 +91,21 @@ export function like() {
     }
 }
 
+function noped() {
+    return {
+        type: NOPE,
+        current: profilesData.current(),
+        next: profilesData.next()
+    }    
+}
+
 export function nope() {
-    
+    return (dispatch, getState) => {
+        dispatch(goNext(-1))
+        setTimeout(() => {
+            dispatch(noped())
+        }, 500)
+    }    
 }
 
 
