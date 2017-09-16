@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 import { load } from '../actions'
 import { nextPhoto, prevPhoto } from '../actions'
-import { like, nope } from '../actions'
+import { like, nope, star } from '../actions'
 
 import ProfileMore from './ProfileMore'
 import Photos from './Photos'
@@ -39,6 +39,7 @@ class ProfileCmp extends Component {
         this._onDragEnd = this._onDragEnd.bind(this)
         this._onSwipeLeft = this._onSwipeLeft.bind(this)
         this._onSwipeRight = this._onSwipeRight.bind(this)
+        this._onSwipeUp = this._onSwipeUp.bind(this)
     }
 
     componentWillReceiveProps(nextProps) {
@@ -96,6 +97,14 @@ class ProfileCmp extends Component {
         }
     }
 
+    _onSwipeUp() {
+        if (!this.props.expanded) {
+            this._setGoNextState()
+            this.props.onSwipeUp()
+        }
+    }
+
+
     render() {
         const { photoIndex, profile, profileNext, onNextPhoto, onPrevPhoto, goNext } = this.props
         let targetStyle = {}, disableDrag = this.props.expanded
@@ -113,13 +122,14 @@ class ProfileCmp extends Component {
                                onDrag={ this._onDrag }
                                onSwipeLeft={ this._onSwipeLeft }
                                onSwipeRight={ this._onSwipeRight }
+                               onSwipeUp={ this._onSwipeUp }
                                onSwipeCanceled={ this._onDragEnd }
                                style={ targetStyle }
                                className={ this.state.photoScale ? 'growing' : '' } >
                         <Photos photos={ profile.photos || [] } 
                                 currentPhoto={ photoIndex } 
                                 onNextPhoto={ onNextPhoto } 
-                                onPrevPhoto={ onPrevPhoto } 
+                                onPrevPhoto={ onPrevPhoto }  
                                 style={this.state.photoScale ? { transform: 'scale(' + this.state.photoScale + ')' } : {} } />
                         <Overlay { ...this.props.profile } />
                         <ProfileMore style={ this.state.moreTop ? { top: this.state.moreTop + '%' } : {} } />
@@ -146,6 +156,7 @@ const mapDispatchToProps = (dispatch) => {
         onLoad: () => { dispatch(load()) }, 
         onSwipeLeft: () => { dispatch(nope()) },
         onSwipeRight: () => { dispatch(like()) },
+        onSwipeUp: () => { dispatch(star()) },
         onNextPhoto: () => dispatch(nextPhoto()),
         onPrevPhoto: () => dispatch(prevPhoto())
     }

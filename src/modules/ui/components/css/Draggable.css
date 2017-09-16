@@ -22,13 +22,23 @@
 }
 
 .draggable-frame .mark.like {
-    color: green;
+    color: #3fd080;
     transform: rotateZ(-20deg);
     left: 10%;    
 }
 
 .draggable-frame .mark.nope {
-    color: red;
+    color: #ee6c49;
     transform: rotateZ(20deg);
     right: 10%;
+}
+
+.draggable-frame .mark.star {
+    color: #2db3c9;
+    transform: rotateZ(-15deg);
+    font-size: 2em;    
+    line-height: 1.2em;    
+    right: 35%;
+    bottom: 10%;
+    top: initial;
 }

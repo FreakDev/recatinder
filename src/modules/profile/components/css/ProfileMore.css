@@ -75,7 +75,7 @@
 .expanded .profile-more .button  {
     will-change: top;
     animation: 0.7s bounce;
-    animation-delay: 0.3s;
+    animation-delay: 0.1s;
 }
 
 @keyframes bounce {

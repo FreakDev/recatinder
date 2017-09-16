@@ -9,6 +9,7 @@ export const LOADED = 'loaded'
 export const GO_NEXT = 'go-next'
 export const LIKE = 'like'
 export const NOPE = 'nope'
+export const STAR = 'star'
 
 export const NEXT_PHOTO = 'next-photo'
 export const PREV_PHOTO = 'prev-photo'
@@ -84,9 +85,26 @@ function liked() {
 
 export function like() {
     return (dispatch, getState) => {
-        dispatch(goNext(1))
+        dispatch(goNext(3))
         setTimeout(() => {
             dispatch(liked())
+        }, 500)
+    }
+}
+
+function starred() {
+    return {
+        type: STAR,
+        current: profilesData.current(),
+        next: profilesData.next()
+    }
+}
+
+export function star() {
+    return (dispatch, getState) => {
+        dispatch(goNext(2))
+        setTimeout(() => {
+            dispatch(starred())
         }, 500)
     }
 }
@@ -101,7 +119,7 @@ function noped() {
 
 export function nope() {
     return (dispatch, getState) => {
-        dispatch(goNext(-1))
+        dispatch(goNext(1))
         setTimeout(() => {
             dispatch(noped())
         }, 500)

@@ -65,12 +65,23 @@ class Draggable extends Component {
                     animate: false
                 })
             }, 400)
-            if (this.state.diffX > SWIPE_DETECTION_LIMIT) {
-                this.props.onSwipeLeft && this.props.onSwipeLeft(Object.assign({}, this.state))
-            } else if (this.state.diffX < -SWIPE_DETECTION_LIMIT) {
-                this.props.onSwipeRight && this.props.onSwipeRight(Object.assign({}, this.state))
+            if (Math.abs(this.state.diffX) > Math.abs(this.state.diffY)) {
+                if (this.state.diffX > SWIPE_DETECTION_LIMIT) {
+                    this.props.onSwipeLeft && this.props.onSwipeLeft(Object.assign({}, this.state))
+                } else if (this.state.diffX < -SWIPE_DETECTION_LIMIT) {
+                    this.props.onSwipeRight && this.props.onSwipeRight(Object.assign({}, this.state))
+                } else {
+                    this.props.onSwipeCanceled && this.props.onSwipeCanceled()    
+                }                    
             } else {
-                this.props.onSwipeCanceled && this.props.onSwipeCanceled()
+                if (this.state.diffY > SWIPE_DETECTION_LIMIT) {
+                    this.props.onSwipeUp && this.props.onSwipeUp(Object.assign({}, this.state))
+                } else if (this.state.diffX < -SWIPE_DETECTION_LIMIT) {
+                    this.props.onSwipeDown && this.props.onSwipeDown(Object.assign({}, this.state))
+                }
+                else {
+                    this.props.onSwipeCanceled && this.props.onSwipeCanceled()
+                }    
             }
         }
     }
@@ -82,8 +93,12 @@ class Draggable extends Component {
             transition: this.state.animate ? '0.4s' : 'none'
         })
 
-        const markStyles = {
+        const hMarkStyles = {
             opacity: this.state.dragging ? Math.abs(this.state.diffX / SWIPE_DETECTION_LIMIT) : 0
+        }
+
+        const vMarkStule = {
+            opacity: this.state.dragging ? Math.abs(this.state.diffY / SWIPE_DETECTION_LIMIT) : 0            
         }
 
         return (
@@ -95,11 +110,15 @@ class Draggable extends Component {
                         { React.Children.map(this.props.children, (child) => React.cloneElement(child, { preventTouchEvent: this.state.dragging } )) }
                     </div>
                 </div>
-                { this.state.dragging ? this.state.diffX < 0 ? 
-                    <div className="mark like" style={ markStyles }>LIKE</div>
-                    : 
-                    <div className="mark nope" style={ markStyles }>NOPE</div>
-                 :
+                { this.state.dragging ? (Math.abs(this.state.diffX) > Math.abs(this.state.diffY) ? (this.state.diffX < 0 ? 
+                        <div className="mark like" style={ hMarkStyles }>LIKE</div>
+                        : 
+                        <div className="mark nope" style={ hMarkStyles }>NOPE</div>
+                    ) : this.state.diffY > 0 ?
+                        <div className="mark star" style={ vMarkStule }>SUPER<br />LIKE</div> 
+                        :
+                        ''
+                    ) :
                  ''
                 }
             </div>
