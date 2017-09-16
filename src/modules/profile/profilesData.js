@@ -6,10 +6,13 @@ export default {
         data = _data
     },
     current() {
-        current++
-        return data[current - 1] || null
+        return data[current] || null
     },
     next() {
+        current++
+        if (current >= data.length) {
+            current = 0
+        }
         return data[current] || null
     }
 } 
