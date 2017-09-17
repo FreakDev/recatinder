@@ -29,7 +29,7 @@ export function load () {
     return (dispatch, getState) => {
         dispatch(loading())
 
-        fetch('/profiles.json')
+        fetch('profiles.json')
         .then(response => {
             if (!response.ok) {
                 throw new Error('http query failed')

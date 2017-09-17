@@ -3,49 +3,49 @@
     "age" : 1,
     "desciption" : "",
     "distance": 7,
-    "photos" : ["/cats/kitten-0.jpg", "/cats/kitten-1.jpg", "/cats/kitten-2.jpg", "/cats/kitten-3.jpg"]
+    "photos" : ["cats/kitten-0.jpg", "cats/kitten-1.jpg", "cats/kitten-2.jpg", "cats/kitten-3.jpg"]
 },
 {
     "name" : "Meau",
     "age" : 1,
     "desciption" : "",
     "distance": 7,
-    "photos" : ["/cats/kitten-4.jpg", "/cats/kitten-5.jpg", "/cats/kitten-6.jpg"]
+    "photos" : ["cats/kitten-4.jpg", "cats/kitten-5.jpg", "cats/kitten-6.jpg"]
 },
 {
     "name" : "Rabia",
     "age" : 1,
     "desciption" : "",
     "distance": 7,
-    "photos" : ["/cats/kitten-7.jpg", "/cats/kitten-8.jpg"]
+    "photos" : ["cats/kitten-7.jpg", "cats/kitten-8.jpg"]
 },
 {
     "name" : "Timent",
     "age" : 1,
     "desciption" : "",
     "distance": 7,
-    "photos" : ["/cats/kitten-9.jpg", "/cats/kitten-10.jpg", "/cats/kitten-11.jpg", "/cats/kitten-12.jpg", "/cats/kitten-13.jpg"]
+    "photos" : ["cats/kitten-9.jpg", "cats/kitten-10.jpg", "cats/kitten-11.jpg", "cats/kitten-12.jpg", "cats/kitten-13.jpg"]
 },
 {
     "name" : "Sseur",
     "age" : 1,
     "desciption" : "",
     "distance": 7,
-    "photos" : ["/cats/kitten-35.jpg", "/cats/kitten-36.jpg"]    
+    "photos" : ["cats/kitten-35.jpg", "cats/kitten-36.jpg"]    
 },
 {
     "name" : "Loupe",
     "age" : 1,
     "desciption" : "",
     "distance": 7,
-    "photos" : ["/cats/kitten-14.jpg", "/cats/kitten-15.jpg", "/cats/kitten-16.jpg", "/cats/kitten-17.jpg"]
+    "photos" : ["cats/kitten-14.jpg", "cats/kitten-15.jpg", "cats/kitten-16.jpg", "cats/kitten-17.jpg"]
 },
 {
     "name" : "Peau",
     "age" : 1,
     "desciption" : "",
     "distance": 7,
-    "photos" : ["/cats/kitten-21.jpg", "/cats/kitten-22.jpg"]
+    "photos" : ["cats/kitten-21.jpg", "cats/kitten-22.jpg"]
 },
 {
     "name" : "Rivari",
@@ -53,26 +53,26 @@
     "desciption" : "",
     "distance": 7,
     
-    "photos" : ["/cats/kitten-32.jpg", "/cats/kitten-33.jpg", "/cats/kitten-34.jpg"]    
+    "photos" : ["cats/kitten-32.jpg", "cats/kitten-33.jpg", "cats/kitten-34.jpg"]    
 },
 {
     "name" : "Rrue",
     "age" : 1,
     "desciption" : "",
     "distance": 7,
-    "photos" : ["/cats/kitten-28.jpg", "/cats/kitten-29.jpg", "/cats/kitten-31.jpg", "/cats/kitten-31.jpg"]
+    "photos" : ["cats/kitten-28.jpg", "cats/kitten-29.jpg", "cats/kitten-31.jpg", "cats/kitten-31.jpg"]
 },
 {
     "name" : "Ste",
     "age" : 1,
     "desciption" : "",
     "distance": 7,
-    "photos" : ["/cats/kitten-23.jpg", "/cats/kitten-24.jpg", "/cats/kitten-25.jpg", "/cats/kitten-26.jpg", "/cats/kitten-27.jpg"]
+    "photos" : ["cats/kitten-23.jpg", "cats/kitten-24.jpg", "cats/kitten-25.jpg", "cats/kitten-26.jpg", "cats/kitten-27.jpg"]
 },
 {
     "name" : "512",
     "age" : 1,
     "desciption" : "",
     "distance": 7,
-    "photos" : ["/cats/kitten-18.jpg", "/cats/kitten-19.jpg", "/cats/kitten-20.jpg"]
+    "photos" : ["cats/kitten-18.jpg", "cats/kitten-19.jpg", "cats/kitten-20.jpg"]
 }]
