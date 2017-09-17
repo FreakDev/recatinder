@@ -5,6 +5,13 @@ import createHistory from 'history/createBrowserHistory'
 
 import rootReducer from './modules/reducers'
 
+import { addTranslation, setLocale } from './modules/translation'
+import { default as fr_lang } from './fr.json'
+import { default as en_lang } from './en.json'
+
+
+export const history = createHistory()
+
 const initialState = {}
 const enhancers = []
 const middleware = [  
@@ -30,5 +37,10 @@ const store = createStore(
   initialState,
   composedEnhancers
 )
+
+store.dispatch(addTranslation(fr_lang))
+store.dispatch(addTranslation(en_lang))
+
+store.dispatch(setLocale("fr_FR"))
 
 export default store

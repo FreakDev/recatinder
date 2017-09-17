@@ -1,0 +1,9 @@
+{
+    "locales": ["fr_FR"],
+    "translations": {
+        "more_recommend": ["recommandez le chat"],
+        "more_to": ["à des"],
+        "more_report": ["signalez"],
+        "more_dist_unit": ["km"]
+    }
+}

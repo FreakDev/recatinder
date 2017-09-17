@@ -1,0 +1,9 @@
+{
+    "locales": ["en_EN"],
+    "translations": {
+        "more_recommend": ["recommend the dog"],
+        "more_to": ["to"],
+        "more_report": ["report"],
+        "more_dist_unit": ["mi"]
+    }
+}
