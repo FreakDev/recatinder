@@ -26,9 +26,9 @@ export class Photos extends Component {
         if (!this.props.preventTouchEvent) {
             const xPos = e.changedTouches[0].pageX 
             if (xPos > this._screenHalf) {
-                this.props.onNextPhoto()
+                this.props.onNextPhoto && this.props.onNextPhoto()
             } else {
-                this.props.onPrevPhoto()
+                this.props.onPrevPhoto && this.props.onPrevPhoto()
             }
         }
     }

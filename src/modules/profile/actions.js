@@ -7,10 +7,7 @@ export const LOADING = 'loading'
 export const LOADED = 'loaded'
 
 export const GO_NEXT = 'go-next'
-export const CLICK_NEXT = 'click-next'
-export const LIKE = 'like'
-export const NOPE = 'nope'
-export const STAR = 'star'
+export const NEXT = 'next'
 
 export const NEXT_PHOTO = 'next-photo'
 export const PREV_PHOTO = 'prev-photo'
@@ -69,87 +66,45 @@ function loaded() {
     }
 }
 
-export function goNext(direction) {
+function goNext(choice) {
     return {
         type: GO_NEXT,
-        direction,
+        choice,
     }
 }
 
-export function clickNext(direction) {
+function nexted() {
     return {
-        type: CLICK_NEXT,
-        direction,
-    }
-}
-
-function liked() {
-    return {
-        type: LIKE,
+        type: NEXT,
         current: profilesData.current(),
         next: profilesData.next()
     }
 }
 
-export function like(auto = false) {
-    return (dispatch, getState) => {
-        new Promise((resolve) => {
-            if (auto && getState().profileUI.expanded) {
-                dispatch(expandProfile(false))
-                setTimeout(() => {
-                    dispatch(clickNext(3))
-                    resolve()                    
-                }, 500)
-            } else {
-                if (auto) {
-                    dispatch(clickNext(3))
-                } else {
-                    dispatch(goNext(3))
-                }
-                resolve()
-            }
-        }).then(() => {
+function closeMorePanel(dispatch, getState) {
+    return new Promise((resolve) => {
+        if (getState().profileUI.expanded) {
+            dispatch(expandProfile(false))
             setTimeout(() => {
-                dispatch(liked())
-            }, 500)    
-        })
-    }
+                resolve()                    
+            }, 500)        
+        } else {
+            resolve();
+        }
+    })
 }
 
-function starred() {
-    return {
-        type: STAR,
-        current: profilesData.current(),
-        next: profilesData.next()
-    }
-}
-
-export function star() {
+export function next(choice) {
     return (dispatch, getState) => {
-        dispatch(goNext(2))
-        setTimeout(() => {
-            dispatch(starred())
-        }, 500)
+        closeMorePanel(dispatch, getState)
+            .then(() => {
+                dispatch(goNext(choice))
+                setTimeout(() => {
+                    dispatch(nexted())
+                }, 500)    
+            })
     }
 }
-
-function noped() {
-    return {
-        type: NOPE,
-        current: profilesData.current(),
-        next: profilesData.next()
-    }    
-}
-
-export function nope() {
-    return (dispatch, getState) => {
-        dispatch(goNext(1))
-        setTimeout(() => {
-            dispatch(noped())
-        }, 500)
-    }    
-}
-
 
 
 // PHOTOS

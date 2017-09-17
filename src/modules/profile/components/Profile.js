@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 import { load } from '../actions'
 import { nextPhoto, prevPhoto } from '../actions'
-import { like, nope, star } from '../actions'
+import { next } from '../actions'
 import { expandProfile } from '../actions'
 
 import ProfileMore from './ProfileMore'
@@ -18,7 +18,6 @@ const styleHeight = { height: '83.5%' }
 
 const INITIAL_PHOTO_SCALE = 1
 const INITIAL_MORE_TOP = 97.5
-
 
 const INITIAL_STATE = {
     nextScale: null,
@@ -91,7 +90,7 @@ class ProfileCmp extends Component {
     _onSwipeRight(data) {
         if (!this.props.expanded) {
             this._setGoNextState()
-            this.props.onSwipeRight()
+            this.props.onClickLike()
         } else {
             if (data.event.target.classList.contains('navigator-content')) {
                 this.props.onNextPhoto()
@@ -102,7 +101,7 @@ class ProfileCmp extends Component {
     _onSwipeLeft(data) {
         if (!this.props.expanded) {
             this._setGoNextState()
-            this.props.onSwipeLeft()
+            this.props.onClickNope()
         }
         else {
             if (data.event.target.classList.contains('navigator-content')) {
@@ -114,16 +113,13 @@ class ProfileCmp extends Component {
     _onSwipeUp() {
         if (!this.props.expanded) {
             this._setGoNextState()
-            this.props.onSwipeUp()
+            this.props.onClickSuper()
         }
     }
 
     render() {
         const { photoIndex, profile, profileNext, onNextPhoto, onPrevPhoto, goNext, onClickBack } = this.props
-        let targetStyle = {}, disableDrag = this.props.expanded
-        if (goNext) {
-            targetStyle = { opacity: 0 }
-        }
+        let disableDrag = this.props.expanded
         return (
             <div ref={r => this._containerNode = r} className={ 'App-profile' + (this.props.expanded ? ' expanded':'') + (goNext !== 0 ? ' goNext' : '')}>
                 <div className="next" style={ Object.assign(this.state.nextScale ? { transform: 'scale(' + this.state.nextScale + ')', opacity: this.state.nextOpacity } : {}, styleHeight) } >
@@ -137,8 +133,8 @@ class ProfileCmp extends Component {
                                onSwipeRight={ this._onSwipeRight }
                                onSwipeUp={ this._onSwipeUp }
                                onSwipeCanceled={ this._onDragEnd }
-                               style={ targetStyle }
-                               className={ this.state.photoScale ? 'growing' : '' } >
+                               className={ (this.state.photoScale ? 'growing' : '') + [' left', ' up', ' right'][goNext - 1] }
+                               mark={(goNext !== 0 ? ['nope', 'super', 'like'][goNext - 1] : '')} >
                         <Photos photos={ profile.photos || [] } 
                                 currentPhoto={ photoIndex } 
                                 onNextPhoto={ onNextPhoto } 
@@ -151,7 +147,8 @@ class ProfileCmp extends Component {
                     </Draggable>
                 </div>
                 <ButtonsBar onNope={ this.props.onClickNope }
-                            onLike={ this.props.onClickLike } />
+                            onLike={ this.props.onClickLike }
+                            onSuper={ this.props.onClickSuper } />
             </div>
         )
     }
@@ -170,14 +167,12 @@ const mapStateToProps = state => {
 const mapDispatchToProps = (dispatch) => {
     return {
         onLoad: () => { dispatch(load()) }, 
-        onSwipeLeft: () => { dispatch(nope()) },
-        onSwipeRight: () => { dispatch(like()) },
-        onSwipeUp: () => { dispatch(star()) },
         onNextPhoto: () => dispatch(nextPhoto()),
         onPrevPhoto: () => dispatch(prevPhoto()),
         onClickBack: () => dispatch(expandProfile(false)),
-        onClickLike: () => dispatch(like(true)),
-        onClickNope: () => dispatch(like(true))
+        onClickLike: () => dispatch(next(3)),
+        onClickNope: () => dispatch(next(1)),
+        onClickSuper: () => dispatch(next(2))
     }
 }
 

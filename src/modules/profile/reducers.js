@@ -5,9 +5,7 @@ import * as acts from './actions'
 const current = (state = null, action) => {
     switch (action.type) {
         case acts.LOADED:
-        case acts.LIKE:
-        case acts.NOPE:
-        case acts.STAR:
+        case acts.NEXT:
             return action.current
         default:
             return state;
@@ -17,9 +15,7 @@ const current = (state = null, action) => {
 const next = (state = null, action) => {
     switch (action.type) {
         case acts.LOADED:
-        case acts.LIKE:
-        case acts.NOPE:
-        case acts.STAR:        
+        case acts.NEXT:
             return action.next
         default:
             return state
@@ -34,7 +30,7 @@ export const profiles  = combineReducers({
 const currentPhoto = (state = 0, action) => {
     switch(action.type) {
         case acts.LOADED:
-        case acts.LIKE:
+        case acts.NEXT:
             return 0
         case acts.NEXT_PHOTO:
             return state + 1
@@ -57,24 +53,9 @@ const expanded = (state = false, action) => {
 const goNext = (state = 0, action) => {
     switch(action.type) {
         case acts.GO_NEXT:
-            return action.direction
-        case acts.LIKE:
-        case acts.NOPE:
-        case acts.STAR:
-            return 0
-        default:
-            return state
-    }
-}
-
-const clickNext = (state = 0, action) => {
-    switch(action.type) {
-        case acts.CLICK_NEXT:
-            return action.direction
-        case acts.LIKE:
-        case acts.NOPE:
-        case acts.STAR:
-            return 0
+            return action.choice
+        case acts.NEXT:
+                return 0
         default:
             return state
     }
@@ -85,7 +66,6 @@ export const buttons = (state = ['refresh', 'nope', 'super', 'like', 'boost'], a
 export const profileUI = combineReducers({
     expanded,
     goNext,
-    clickNext,
     currentPhoto,
     buttons    
 })

@@ -27,6 +27,23 @@
     transition: 0.2s
 }
 
+.goNext .draggable-frame {
+    opacity: 0;
+    transition: 0.4s    
+}
+
+.goNext .draggable-frame.right { 
+    transform: translate3d(150%, 10%, 0) rotateZ(-25deg) !important;
+}
+
+.goNext .draggable-frame.up { 
+    transform: translate3d(0%, -150%, 0) rotateZ(-5deg) !important;
+}
+
+.goNext .draggable-frame.left { 
+    transform: translate3d(-150%, 10%, 0) rotateZ(25deg) !important;
+}
+
 .next {
     transform: scale(0.8);
     opacity: 0;
@@ -36,4 +53,6 @@
 
 .goNext .next {
     opacity: 1;
+    transition: 0.4s;
+    transform: scale(1);    
 }

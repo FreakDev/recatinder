@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+
 import './css/Draggable.css'
 
 export const SWIPE_DETECTION_LIMIT = 100
@@ -53,7 +54,6 @@ class Draggable extends Component {
         this.setState(nextState)
         
         this.props.onDrag(eventData)
-
     }
 
     _onTouchEnd(e) {
@@ -102,9 +102,38 @@ class Draggable extends Component {
                 opacity: this.state.dragging ? Math.abs(this.state.diffY / SWIPE_DETECTION_LIMIT) : 0            
             }
 
-            draggableStyles = {
-                transform: this.state.dragging ? 'translate3d(' + (-this.state.diffX * 1.5) + 'px, ' + (-this.state.diffY * 1.5) + 'px, 0) rotateZ(' + (this.state.diffX / this._screenHalf) * 45 + 'deg)' : 'none',
-                transition: this.state.animate ? '0.4s' : 'none'
+            if (this.state.dragging) {
+                Object.assign(draggableStyles, {
+                    transform: 'translate3d(' + (-this.state.diffX * 1.5) + 'px, ' + (-this.state.diffY * 1.5) + 'px, 0) rotateZ(' + (this.state.diffX / this._screenHalf) * 45 + 'deg)'
+                })
+            }
+
+            if (this.state.animate) {
+                Object.assign(draggableStyles, {
+                    transition: '0.4s'
+                })
+            }
+        }
+
+        const marks = {
+            like: (<div className="mark like" style={ hMarkStyles }>LIKE</div>),
+            nope: (<div className="mark nope" style={ hMarkStyles }>NOPE</div>),
+            star: (<div className="mark star" style={ vMarkStyle }>SUPER<br />LIKE</div>)
+        }
+        let mark = ''
+
+        if (this.props.mark) {
+            mark = (marks[this.props.mark])
+        } else if (this.state.dragging) {
+            if (Math.abs(this.state.diffX) > Math.abs(this.state.diffY)) {
+                if (this.state.diffX < 0) {
+                    mark = marks['like']
+                } else {
+                    mark = marks['nope']
+                }
+            } else {
+                if (this.state.diffY > 0)
+                    mark = marks['star']
             }
         }
 
@@ -117,17 +146,7 @@ class Draggable extends Component {
                         { React.Children.map(this.props.children, (child) => React.cloneElement(child, { preventTouchEvent: this.state.dragging } )) }
                     </div>
                 </div>
-                { this.state.dragging ? (Math.abs(this.state.diffX) > Math.abs(this.state.diffY) ? (this.state.diffX < 0 ? 
-                        <div className="mark like" style={ hMarkStyles }>LIKE</div>
-                        : 
-                        <div className="mark nope" style={ hMarkStyles }>NOPE</div>
-                    ) : this.state.diffY > 0 ?
-                        <div className="mark star" style={ vMarkStyle }>SUPER<br />LIKE</div> 
-                        :
-                        ''
-                    ) :
-                 ''
-                }
+                { mark }
             </div>
         )
     }
