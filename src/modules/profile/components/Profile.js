@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { load } from '../actions'
 import { nextPhoto, prevPhoto } from '../actions'
 import { like, nope, star } from '../actions'
+import { expandProfile } from '../actions'
 
 import ProfileMore from './ProfileMore'
 import Photos from './Photos'
@@ -104,9 +105,8 @@ class ProfileCmp extends Component {
         }
     }
 
-
     render() {
-        const { photoIndex, profile, profileNext, onNextPhoto, onPrevPhoto, goNext } = this.props
+        const { photoIndex, profile, profileNext, onNextPhoto, onPrevPhoto, goNext, onClickBack } = this.props
         let targetStyle = {}, disableDrag = this.props.expanded
         if (goNext) {
             targetStyle = { opacity: 0 }
@@ -132,10 +132,13 @@ class ProfileCmp extends Component {
                                 onPrevPhoto={ onPrevPhoto }  
                                 style={this.state.photoScale ? { transform: 'scale(' + this.state.photoScale + ')' } : {} } />
                         <Overlay { ...this.props.profile } />
-                        <ProfileMore style={ this.state.moreTop ? { top: this.state.moreTop + '%' } : {} } />
+                        <ProfileMore onClickBack={ onClickBack } 
+                                     profile={ profile } 
+                                     style={ this.state.moreTop ? { top: this.state.moreTop + '%' } : {} } />
                     </Draggable>
                 </div>
-                <ButtonsBar />                
+                <ButtonsBar onNope={ this.props.onClickNope }
+                            onLike={ this.props.onClickLike } />
             </div>
         )
     }
@@ -158,7 +161,10 @@ const mapDispatchToProps = (dispatch) => {
         onSwipeRight: () => { dispatch(like()) },
         onSwipeUp: () => { dispatch(star()) },
         onNextPhoto: () => dispatch(nextPhoto()),
-        onPrevPhoto: () => dispatch(prevPhoto())
+        onPrevPhoto: () => dispatch(prevPhoto()),
+        onClickBack: () => dispatch(expandProfile(false)),
+        onClickLike: () => dispatch(like(true)),
+        onClickNope: () => dispatch(like(true))
     }
 }
 

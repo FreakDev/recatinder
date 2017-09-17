@@ -67,11 +67,25 @@ const goNext = (state = 0, action) => {
     }
 }
 
-export const buttons = (state = ['refresh', 'nope', 'super-like', 'like', 'boost'], action) => state
+const clickNext = (state = 0, action) => {
+    switch(action.type) {
+        case acts.CLICK_NEXT:
+            return action.direction
+        case acts.LIKE:
+        case acts.NOPE:
+        case acts.STAR:
+            return 0
+        default:
+            return state
+    }
+}
+
+export const buttons = (state = ['refresh', 'nope', 'super', 'like', 'boost'], action) => state
 
 export const profileUI = combineReducers({
     expanded,
     goNext,
+    clickNext,
     currentPhoto,
     buttons    
 })

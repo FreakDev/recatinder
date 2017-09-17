@@ -7,6 +7,7 @@ export const LOADING = 'loading'
 export const LOADED = 'loaded'
 
 export const GO_NEXT = 'go-next'
+export const CLICK_NEXT = 'click-next'
 export const LIKE = 'like'
 export const NOPE = 'nope'
 export const STAR = 'star'
@@ -75,6 +76,13 @@ export function goNext(direction) {
     }
 }
 
+export function clickNext(direction) {
+    return {
+        type: CLICK_NEXT,
+        direction,
+    }
+}
+
 function liked() {
     return {
         type: LIKE,
@@ -83,12 +91,28 @@ function liked() {
     }
 }
 
-export function like() {
+export function like(auto = false) {
     return (dispatch, getState) => {
-        dispatch(goNext(3))
-        setTimeout(() => {
-            dispatch(liked())
-        }, 500)
+        new Promise((resolve) => {
+            if (auto && getState().profileUI.expanded) {
+                dispatch(expandProfile(false))
+                setTimeout(() => {
+                    dispatch(clickNext(3))
+                    resolve()                    
+                }, 500)
+            } else {
+                if (auto) {
+                    dispatch(clickNext(3))
+                } else {
+                    dispatch(goNext(3))
+                }
+                resolve()
+            }
+        }).then(() => {
+            setTimeout(() => {
+                dispatch(liked())
+            }, 500)    
+        })
     }
 }
 

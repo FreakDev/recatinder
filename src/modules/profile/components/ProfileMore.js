@@ -1,13 +1,10 @@
 import React from 'react'
-import { connect } from 'react-redux'
-
-import { expandProfile } from '../actions'
 
 import Button from '../../ui/components/Button'
 
 import './css/ProfileMore.css'
 
-export const ProfileMoreCmp = ({profile, style, onClickBack}) => {
+export const ProfileMore = ({profile, style, onClickBack}) => {
     
     const { name, age, description, distance } = Object.assign({}, {
         name:'...',
@@ -40,19 +37,5 @@ export const ProfileMoreCmp = ({profile, style, onClickBack}) => {
         </div>
     )
 }
-const mapStateToProps = (state, ownProps) => {
-    return {
-        ...ownProps,
-        profile: state.profiles.current,
-    }
-}
-
-const mapDispatchToProps = dispatch => {
-    return {
-        onClickBack: () => { dispatch(expandProfile(false)) }
-    }
-}
-
-const ProfileMore = connect(mapStateToProps, mapDispatchToProps)(ProfileMoreCmp)
 
 export default ProfileMore
