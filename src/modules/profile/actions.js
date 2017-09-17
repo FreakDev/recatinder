@@ -27,27 +27,29 @@ export function error(message) {
 
 export function load () {
     return (dispatch, getState) => {
-        dispatch(loading())
-
-        fetch('profiles.json')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('http query failed')
-            }
-            return response
-        })
-        .catch(e => {
-            dispatch(error())
-            console.error(e)            
-        })
-        .then(response => response && response.json())
-        .then(json => {
-            if (json) {
-                profilesData.load(json)
-                dispatch(loaded())
-                dispatch(loading(false))
-            }
-        })
+        if (!getState().profiles.current) {
+            dispatch(loading())
+    
+            fetch('profiles.json')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('http query failed')
+                }
+                return response
+            })
+            .catch(e => {
+                dispatch(error())
+                console.error(e)            
+            })
+            .then(response => response && response.json())
+            .then(json => {
+                if (json) {
+                    profilesData.load(json)
+                    dispatch(loaded())
+                    dispatch(loading(false))
+                }
+            })            
+        }
     }
 }
 

@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 import { default as Button } from './BarButton'
 
@@ -9,13 +10,15 @@ export const HeaderCmp = ({ buttons }) => {
     return (
         <div className="App-header bar row">
             { buttons.map( (b, k) => (
-                <Button key={ 'header-btn-' + k } icon={b} subdiv={buttons.length} />
+                <Link key={ 'header-link-' + k } to={ "/" + b }>
+                    <Button key={ 'header-btn-' + k } icon={b} subdiv={buttons.length} />
+                </Link>
             )) }
         </div>
     )
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
     return {
         buttons: state.ui.header
     }

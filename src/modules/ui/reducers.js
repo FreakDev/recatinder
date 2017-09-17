@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
 
-export const header = (state = ['profile', 'home', 'tchat'], action) => state
+export const header = (state = ['profile', 'feed', 'tchat'], action) => state
 
 const ui = combineReducers({
     header
