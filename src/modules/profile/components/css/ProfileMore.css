@@ -70,6 +70,8 @@
 
 .description-row {
     height: 50%;
+    text-align: left;
+    padding: 3%;    
 }
 
 .expanded .profile-more .button  {

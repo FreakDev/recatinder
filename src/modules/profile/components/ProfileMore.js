@@ -6,17 +6,12 @@ import './css/ProfileMore.css'
 
 export const ProfileMore = ({profile, style, onClickBack}) => {
     
-    const { name, age, description, distance } = Object.assign({}, {
-        name:'...',
-        age: '',
-        distance: '',
-        description: ''
-    }, profile)
+    const { name, age, description, distance, shareWith } = profile
 
     return (
         <div className="profile-more" style={ style }>
             <div className="row name-row">
-                <p className="name-info">{ name }, { age }</p>
+                <p className="name-info">{ name }{ age ? ', ' + age : '' }</p>
                 <p className="distance-info">
                     { distance ? 
                         <span> <i className="icon geo-pin" />{ distance } km </span> :
@@ -25,7 +20,7 @@ export const ProfileMore = ({profile, style, onClickBack}) => {
                 </p>
             </div>
             <div className="row share-row">
-                <p><span className="share-info first-line">recommandez le chat { name }</span><span className="share-info second-line">à des amis</span></p>
+                <p><span className="share-info first-line">recommandez le chat { name }</span><span className="share-info second-line">à des { shareWith }</span></p>
             </div>
             <div className="row report-row">
                 <p>signalez  { name }</p>

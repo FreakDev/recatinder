@@ -7,14 +7,10 @@ import Button from '../../ui/components/Button'
 
 import './css/Overlay.css'
 
-export const OveralyCmp = (props) => {
-    const { name, age, onClick } = Object.assign({
-        name: 'Mellys',
-        age: '',
-    }, props)
+export const OveralyCmp = ({ name, age, onClick }) => {
     return (
         <div className="overlay" onClick={ onClick }>
-            <span className="name-info">{ name }, { age }</span>
+            <span className="name-info">{ name }{ age ? ', ' + age : '' }</span>
             <Button rounded size="smaller" style={{ color: 'black' }} >i</Button>
         </div>
     )
