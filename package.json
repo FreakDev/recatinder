@@ -1,7 +1,8 @@
 {
   "name": "recatinder",
-  "version": "0.1.0",
-  "private": true,
+  "version": "2.0.0",
+  "private": false,
+  "homepage": "https://freakdev.github.io/reCatinder",
   "dependencies": {
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
