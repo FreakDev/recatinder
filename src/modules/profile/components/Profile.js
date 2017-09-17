@@ -56,12 +56,16 @@ class ProfileCmp extends Component {
                 nextOpacity: Math.min((distance / (SWIPE_DETECTION_LIMIT)), 1)
             }))
         } else {
-            if (e.diffY < 20) {
-                if (!this._containerNode.scrollTop) {
-                    this.setState(Object.assign({}, INITIAL_STATE, {
-                        photoScale: Math.min(INITIAL_PHOTO_SCALE + (distance /100), 1.3),
-                        moreTop: Math.min((INITIAL_MORE_TOP + distance * 0.5), 112.5)
-                    }))
+            if (Math.abs(e.diffY) > Math.abs(e.diffX)) {
+                if (e.diffY < 20) {
+                    if (!this._containerNode.scrollTop) {
+                        this.setState(Object.assign({}, INITIAL_STATE, {
+                            photoScale: Math.min(INITIAL_PHOTO_SCALE + (distance /100), 1.3),
+                            moreTop: Math.min((INITIAL_MORE_TOP + distance * 0.5), 112.5)
+                        }))
+                    }
+                } else {
+                    this._reset()
                 }
             } else {
                 this._reset()
@@ -84,17 +88,26 @@ class ProfileCmp extends Component {
         this._reset()
     }
 
-    _onSwipeRight() {
+    _onSwipeRight(data) {
         if (!this.props.expanded) {
             this._setGoNextState()
             this.props.onSwipeRight()
+        } else {
+            if (data.event.target.classList.contains('navigator-content')) {
+                this.props.onNextPhoto()
+            }
         }
     }
 
-    _onSwipeLeft() {
+    _onSwipeLeft(data) {
         if (!this.props.expanded) {
             this._setGoNextState()
             this.props.onSwipeLeft()
+        }
+        else {
+            if (data.event.target.classList.contains('navigator-content')) {
+                this.props.onPrevPhoto()
+            }
         }
     }
 

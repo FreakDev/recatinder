@@ -37,19 +37,19 @@ class Draggable extends Component {
     _onTouchMove(e) {
         e.preventDefault();
         let nextState = { dragging: true }
-
+        
         if (!this.state.dragging) {
             this._startingPoint = { x:e.changedTouches[0].pageX, y:e.changedTouches[0].pageY }
-            this.props.onSwipeStart && this.props.onSwipeStart()            
-        }
+            this.props.onSwipeStart && this.props.onSwipeStart()
+        }            
+
         const eventData = {
             diffX: this._startingPoint.x - e.changedTouches[0].pageX,
-            diffY: this._startingPoint.y - e.changedTouches[0].pageY
+            diffY: this._startingPoint.y - e.changedTouches[0].pageY,
+            event: e
         }
-        
-        if (!this.props.disable) {
-            Object.assign(nextState, eventData)
-        }
+
+        Object.assign(nextState, eventData)
         this.setState(nextState)
         
         this.props.onDrag(eventData)
@@ -59,6 +59,7 @@ class Draggable extends Component {
     _onTouchEnd(e) {
         if(this.state.dragging) {
             this._startingPoint = null
+            const { diffX, diffY, event } = this.state    
             this.setState(Object.assign({}, INITIAL_STATE, {animate: true}))
             setTimeout(() => {
                 this.setState({
@@ -67,17 +68,17 @@ class Draggable extends Component {
             }, 400)
             if (Math.abs(this.state.diffX) > Math.abs(this.state.diffY)) {
                 if (this.state.diffX > SWIPE_DETECTION_LIMIT) {
-                    this.props.onSwipeLeft && this.props.onSwipeLeft(Object.assign({}, this.state))
+                    this.props.onSwipeLeft && this.props.onSwipeLeft({ diffX, diffY, event })
                 } else if (this.state.diffX < -SWIPE_DETECTION_LIMIT) {
-                    this.props.onSwipeRight && this.props.onSwipeRight(Object.assign({}, this.state))
+                    this.props.onSwipeRight && this.props.onSwipeRight({ diffX, diffY, event })
                 } else {
-                    this.props.onSwipeCanceled && this.props.onSwipeCanceled()    
+                    this.props.onSwipeCanceled && this.props.onSwipeCanceled()
                 }                    
             } else {
                 if (this.state.diffY > SWIPE_DETECTION_LIMIT) {
-                    this.props.onSwipeUp && this.props.onSwipeUp(Object.assign({}, this.state))
+                    this.props.onSwipeUp && this.props.onSwipeUp({ diffX, diffY, event })
                 } else if (this.state.diffX < -SWIPE_DETECTION_LIMIT) {
-                    this.props.onSwipeDown && this.props.onSwipeDown(Object.assign({}, this.state))
+                    this.props.onSwipeDown && this.props.onSwipeDown({ diffX, diffY, event })
                 }
                 else {
                     this.props.onSwipeCanceled && this.props.onSwipeCanceled()
@@ -88,17 +89,23 @@ class Draggable extends Component {
 
     render() {
 
-        const draggableStyles = Object.assign({
-            transform: this.state.dragging ? 'translate3d(' + (-this.state.diffX * 1.5) + 'px, ' + (-this.state.diffY * 1.5) + 'px, 0) rotateZ(' + (this.state.diffX / this._screenHalf) * 45 + 'deg)' : 'none',
-            transition: this.state.animate ? '0.4s' : 'none'
-        })
+        let draggableStyles = {}
 
-        const hMarkStyles = {
-            opacity: this.state.dragging ? Math.abs(this.state.diffX / SWIPE_DETECTION_LIMIT) : 0
-        }
+        let vMarkStyle = {}, hMarkStyles = {}
 
-        const vMarkStule = {
-            opacity: this.state.dragging ? Math.abs(this.state.diffY / SWIPE_DETECTION_LIMIT) : 0            
+        if (!this.props.disable) {
+            hMarkStyles = {
+                opacity: this.state.dragging ? Math.abs(this.state.diffX / SWIPE_DETECTION_LIMIT) : 0
+            }
+    
+            vMarkStyle = {
+                opacity: this.state.dragging ? Math.abs(this.state.diffY / SWIPE_DETECTION_LIMIT) : 0            
+            }
+
+            draggableStyles = {
+                transform: this.state.dragging ? 'translate3d(' + (-this.state.diffX * 1.5) + 'px, ' + (-this.state.diffY * 1.5) + 'px, 0) rotateZ(' + (this.state.diffX / this._screenHalf) * 45 + 'deg)' : 'none',
+                transition: this.state.animate ? '0.4s' : 'none'
+            }
         }
 
         return (
@@ -115,7 +122,7 @@ class Draggable extends Component {
                         : 
                         <div className="mark nope" style={ hMarkStyles }>NOPE</div>
                     ) : this.state.diffY > 0 ?
-                        <div className="mark star" style={ vMarkStule }>SUPER<br />LIKE</div> 
+                        <div className="mark star" style={ vMarkStyle }>SUPER<br />LIKE</div> 
                         :
                         ''
                     ) :
