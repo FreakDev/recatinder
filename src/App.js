@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux'
 
-import { Route, Redirect } from 'react-router-dom'
-import { ConnectedRouter } from 'react-router-redux'
+import { HashRouter, Route, Redirect } from 'react-router-dom'
 
 import store, { history } from './store'
 
@@ -17,14 +16,14 @@ class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <ConnectedRouter history={ history } >
+        <HashRouter history={ history } >
         <div className="App">
           <Header />
-          <Route exact path="/profile" component={Home} />
+          <Route path="/profile" component={Home} />
           <Route path="/feed" component={Profile} />
-          <Redirect from="/" to="profile" />
+          <Redirect from="/" to="/profile" />
         </div>
-        </ConnectedRouter>
+        </HashRouter>
       </Provider>
     );
   }

@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { push } from 'react-router-redux'
+import { history } from '../../../store'
 
 import { setLocale } from '../../translation/actions'
 import { setAnimal } from '../../profile/actions'
@@ -24,12 +24,12 @@ const mapDispatchToProps = (dispatch) => {
         onChats: () => { 
             dispatch(setLocale('fr_FR'))
             dispatch(setAnimal('cats'))
-            dispatch(push('/feed'))
+            history.push('/feed')
         },
         onDogs: () => { 
             dispatch(setLocale('en_EN'))
             dispatch(setAnimal('dogs'))
-            dispatch(push('/feed'))
+            history.push('/feed')
         }
     }
 }

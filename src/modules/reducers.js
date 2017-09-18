@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import { routerReducer } from 'react-router-redux'
+// import { routerReducer } from 'react-router-redux'
 
 import ui from './ui/reducers'
 import translation from './translation/reducers'
@@ -8,7 +8,7 @@ import { profileUI } from './profile/reducers'
 
 
 export default combineReducers({
-    routing: routerReducer,
+    // routing: routerReducer,
     ui,
     profiles,
     profileUI,
