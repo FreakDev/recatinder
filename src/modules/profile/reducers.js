@@ -22,9 +22,19 @@ const next = (state = null, action) => {
     }
 }
 
+const animal = (state = 'cats', action) => {
+    switch(action.type) {
+        case acts.SET_ANIMAL:
+            return action.animal
+        default:
+            return state
+    }
+}
+
 export const profiles  = combineReducers({
     next,
     current,
+    animal    
 })
 
 const currentPhoto = (state = 0, action) => {
@@ -67,6 +77,6 @@ export const profileUI = combineReducers({
     expanded,
     goNext,
     currentPhoto,
-    buttons    
+    buttons
 })
 

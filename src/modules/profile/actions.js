@@ -2,6 +2,8 @@ import profilesData from './profilesData'
 
 export const ERROR = 'error'
 
+export const SET_ANIMAL = 'set-animal'
+
 export const LOAD = 'load'
 export const LOADING = 'loading'
 export const LOADED = 'loaded'
@@ -24,13 +26,20 @@ export function error(message) {
     }
 }
 
+export function setAnimal(animal) {
+    return {
+        type: SET_ANIMAL,
+        animal
+    }
+}
 
 export function load () {
     return (dispatch, getState) => {
-        if (!getState().profiles.current) {
+        const state = getState()
+        if (!state.profiles.current || state.profiles.current.animal !== state.profiles.animal) {
             dispatch(loading())
     
-            fetch('profiles.json')
+            fetch(state.profiles.animal === 'dogs' ? 'profiles-dogs.json' : 'profiles.json')
             .then(response => {
                 if (!response.ok) {
                     throw new Error('http query failed')

@@ -1,4 +1,5 @@
 [{
+    "animal": "chats",
     "name" : "Mallow",
     "shareWith": "enfants",
     "age": 1,
@@ -7,12 +8,14 @@
     "photos" : ["cats/kitten-0.jpg", "cats/kitten-1.jpg", "cats/kitten-2.jpg", "cats/kitten-3.jpg"]
 },
 {
+    "animal": "chats",
     "name" : "Meau",
     "shareWith": "touaregs",
     "description" : "Il ne boit pas beaucoups c'est l'avantage",
     "photos" : ["cats/kitten-4.jpg", "cats/kitten-5.jpg", "cats/kitten-6.jpg"]
 },
 {
+    "animal": "chats",
     "name" : "Rabia",
     "shareWith": "pipelettes",
     "age" : 2,
@@ -21,6 +24,7 @@
     "photos" : ["cats/kitten-7.jpg", "cats/kitten-8.jpg"]
 },
 {
+    "animal": "chats",
     "name" : "Timent",
     "shareWith": "ennemis",
     "description" : "Il sort les griffes parfois!",
@@ -28,6 +32,7 @@
     "photos" : ["cats/kitten-9.jpg", "cats/kitten-10.jpg", "cats/kitten-11.jpg", "cats/kitten-12.jpg", "cats/kitten-13.jpg"]
 },
 {
+    "animal": "chats",
     "name" : "Sseur",
     "shareWith": "pêcheurs",
     "age" : 1,
@@ -36,12 +41,14 @@
     "photos" : ["cats/kitten-35.jpg", "cats/kitten-36.jpg"]    
 },
 {
+    "animal": "chats",
     "name" : "Loupe",
     "shareWith": "marin",
     "description" : "Tangue un peu de temps à autre",
     "photos" : ["cats/kitten-14.jpg", "cats/kitten-15.jpg", "cats/kitten-16.jpg", "cats/kitten-17.jpg"]
 },
 {
+    "animal": "chats",
     "name" : "Peauté",
     "shareWith": "montres verts",
     "age" : 3,
@@ -50,6 +57,7 @@
     "photos" : ["cats/kitten-21.jpg", "cats/kitten-22.jpg"]
 },
 {
+    "animal": "chats",
     "name" : "Kira",
     "shareWith": "chateuses",
     "age" : 2,
@@ -59,12 +67,14 @@
     "photos" : ["cats/kitten-32.jpg", "cats/kitten-33.jpg", "cats/kitten-34.jpg"]    
 },
 {
+    "animal": "chats",
     "name" : "Rrue",
     "shareWith": "paysans",
     "description" : "Rrue... Parfois dans les brancards",
     "photos" : ["cats/kitten-28.jpg", "cats/kitten-29.jpg", "cats/kitten-31.jpg", "cats/kitten-31.jpg"]
 },
 {
+    "animal": "chats",
     "name" : "Ste",
     "shareWith": "bonnes soeurs",
     "description" : "Amen",
@@ -72,6 +82,7 @@
     "photos" : ["cats/kitten-23.jpg", "cats/kitten-24.jpg", "cats/kitten-25.jpg", "cats/kitten-26.jpg", "cats/kitten-27.jpg"]
 },
 {
+    "animal": "chats",
     "name" : "512",
     "shareWith": "informaticiens",
     "description" : "Chat One est mort vive les sha!",

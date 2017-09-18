@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux'
 
-import { Route } from 'react-router-dom'
+import { Route, Redirect } from 'react-router-dom'
 import { ConnectedRouter } from 'react-router-redux'
 
 import store, { history } from './store'
@@ -21,7 +21,8 @@ class App extends Component {
         <div className="App">
           <Header />
           <Route exact path="/profile" component={Home} />
-          <Route exact path="/feed" component={Profile} />
+          <Route path="/feed" component={Profile} />
+          <Redirect from="/" to="profile" />
         </div>
         </ConnectedRouter>
       </Provider>

@@ -160,7 +160,7 @@ const mapStateToProps = state => {
         profileNext: state.profiles.next ? state.profiles.next : [],
         photoIndex: state.profileUI.currentPhoto,
         expanded: state.profileUI.expanded,
-        goNext: state.profileUI.goNext
+        goNext: state.profileUI.goNext,
     }
 }
 
