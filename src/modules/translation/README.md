@@ -16,9 +16,9 @@ in your root redux reducer add the key translation and add the reducer provided 
 ```javascript
 //...
 import { translation } from 'path/to/module/translation'
-{
+const rootReducer {
 //...
-translation
+    translation
 }
 //...
 ```
@@ -41,9 +41,10 @@ store.dispatch( addTranslation(en_FR) )
 
 ```javascript
 //...
-import { getTranslate } from 'path/to/module/translation
+import { getTranslate } from 'path/to/module/translation'
  
 const cmp = ({ translate }) => (
+    {# refers to a 'label' that is tranlsated into the previously loaded language files #}
    <span>{ translate('label') }</span>
 )
  
