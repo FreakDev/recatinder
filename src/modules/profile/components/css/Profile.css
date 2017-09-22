@@ -23,7 +23,7 @@
 }
 
 .expanded .navigator li {
-    transform: translateY(4500%) scale(0.8);
+    transform: translateY(3850%) scale(0.85);
     transition: 0.2s
 }
 
