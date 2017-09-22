@@ -13,6 +13,8 @@
 }
 
 .button.rounded {
+    width:60px;
+    height: 60px;    
     border-radius: 50%;
     border-image: linear-gradient(45deg, #f0f2f5, #f4f5f7);
     box-shadow: 0px 5px 50px rgba(20, 20, 20, 0.1);    
